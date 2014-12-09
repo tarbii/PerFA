@@ -7,13 +7,13 @@ using PerFA.Model;
 
 namespace PerFA.ViewModel
 {
-    class ViewModel
+    class ViewModelLogin
     {
         public Login Login { get; set; }
 
         public LoginCommand LoginCommand { get; set; }
 
-        public ViewModel()
+        public ViewModelLogin()
         {
             Login = new Login();
             LoginCommand = new LoginCommand(Login);

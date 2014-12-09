@@ -64,6 +64,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Registration.cs" />
+    <Compile Include="ViewModel\RegistrateCommand.cs" />
+    <Compile Include="ViewModel\ViewModelRegistration.cs" />
+    <Compile Include="View\RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,11 +81,15 @@
     <Compile Include="Model\Login.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\LoginCommand.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLogin.cs" />
     <Compile Include="View\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Database\Credit.cs" />

@@ -4,12 +4,13 @@
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.MainWindowView"
         Title="MainWindow" Height="350" Width="525">
     <Window.DataContext>
-        <ViewModel:ViewModel/>
+        <ViewModel:ViewModelLogin/>
     </Window.DataContext>
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Login.LoginId}" VerticalAlignment="Top" Width="120" Margin="128,56,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Login.Password}" VerticalAlignment="Top" Width="120" Margin="128,105,0,0"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="128,156,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LoginCommand}"/>
         <Label Content="{Binding Login.LoginMessage, Mode=OneWay}" HorizontalAlignment="Left" Margin="237,152,0,0" VerticalAlignment="Top" Width="270" Height="26"/>
+        <Button Content="Registrate" HorizontalAlignment="Left" Margin="128,209,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-2.08,-1.091" Click="Button_Click"/>
     </Grid>
 </Window>
