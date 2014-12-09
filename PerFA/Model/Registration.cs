@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using PerFA.Annotations;
 
 namespace PerFA.Model
@@ -61,6 +62,11 @@ namespace PerFA.Model
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public void Registrate()
+        {
+            MessageBox.Show(string.Format("name = {0} login = {1} password = {2}", Name, Login, Password));
         }
     }
 }

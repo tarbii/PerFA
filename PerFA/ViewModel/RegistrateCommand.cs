@@ -24,7 +24,7 @@ namespace PerFA.ViewModel
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            registration.Registrate();
         }
 
         public event EventHandler CanExecuteChanged;
