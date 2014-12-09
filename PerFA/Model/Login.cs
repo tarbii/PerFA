@@ -71,30 +71,9 @@ namespace PerFA.Model
         
         public void TryLogin()
         {
-            var users = Database.Users.ToList();
-            foreach (var user in Database.Users)
-            {
-                LoginMessage += user.Name;
-            }
-            return;
-            var t =
-                (from user in Database.Users where user.Login == LoginId && user.Password == Password select user)
-                    .FirstOrDefault();
             var b = (Database.Users.Where(x => x.Login == LoginId && x.Password == Password)).FirstOrDefault();
 
-
-
-            if (b != null)
-            {
-                LoginMessage = "OK";
-            }
-            else
-            {
-                LoginMessage = "HUYOK";
-                
-            }
-
+            LoginMessage = b != null ? "OK" : "HUYOK";
         }
-
     }
 }
