@@ -46,7 +46,7 @@ namespace PerFA.Model
         public string LoginId
         {
             get { return loginId; }
-            private set
+            set
             {
                 if (loginId != value)
                 {
@@ -59,7 +59,7 @@ namespace PerFA.Model
         public string Password
         {
             get { return password; }
-            private set
+            set
             {
                 if (password != value)
                 {
