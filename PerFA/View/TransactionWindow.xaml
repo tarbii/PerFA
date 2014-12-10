@@ -1,8 +1,27 @@
-﻿<Window x:Class="PerFA.View.TransactionWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TransactionWindow" Height="380" Width="729">
-    <Grid>
-        
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Database="clr-namespace:PerFA.Model.Database" mc:Ignorable="d" x:Class="PerFA.View.TransactionWindow"
+        Title="TransactionWindow" Height="380" Width="729" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="transactionViewSource" d:DesignSource="{d:DesignInstance {x:Type Database:Transaction}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource transactionViewSource}">
+
+        <DataGrid x:Name="transactionDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="author_IDColumn" Width="SizeToHeader" Header="Author ID" Binding="{Binding Author_ID}"/>
+                <DataGridTemplateColumn x:Name="dateColumn" Width="SizeToHeader" Header="Date">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Date, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="descriptionColumn" Width="SizeToHeader" Header="Description" Binding="{Binding Description}"/>
+                <DataGridTextColumn x:Name="iDColumn" Width="SizeToHeader" Header="ID" Binding="{Binding ID}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>
