@@ -17,5 +17,10 @@ namespace PerFA.View
             var registrationWindow = new RegistrationWindow();
             registrationWindow.Show();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new TransactionWindow().Show();
+        }
     }
 }
