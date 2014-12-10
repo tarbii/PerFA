@@ -1,0 +1,8 @@
+﻿<Window x:Class="PerFA.View.TransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TransactionWindow" Height="380" Width="729">
+    <Grid>
+        
+    </Grid>
+</Window>

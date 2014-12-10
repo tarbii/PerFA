@@ -10,7 +10,7 @@ namespace PerFA.ViewModel
 {
     class RegistrateCommand : ICommand
     {
-        private Registration registration;
+        private readonly Registration registration;
 
         public RegistrateCommand(Registration registration)
         {
