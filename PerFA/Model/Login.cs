@@ -22,10 +22,8 @@ namespace PerFA.Model
         }
         public Login()
         {
-            Database = new DatabaseContext();
         }
 
-        public DatabaseContext Database;
         private string loginId;
         private string password;
         private string loginMessage = "Enter login & password";
@@ -71,9 +69,11 @@ namespace PerFA.Model
         
         public void TryLogin()
         {
-            var b = (Database.Users.Where(x => x.Login == LoginId && x.Password == Password)).FirstOrDefault();
-
-            LoginMessage = b != null ? "OK" : "HUYOK";
+            using (var db = new DatabaseContext())
+            {
+                var b = (db.Users.Where(x => x.Login == LoginId && x.Password == Password)).FirstOrDefault();
+                LoginMessage = b != null ? "OK" : "HUYOK"; 
+            }
         }
     }
 }

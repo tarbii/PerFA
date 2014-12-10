@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using PerFA.Annotations;
+using PerFA.Model.Database;
 
 namespace PerFA.Model
 {
@@ -66,7 +67,12 @@ namespace PerFA.Model
 
         public void Registrate()
         {
-            MessageBox.Show(string.Format("name = {0} login = {1} password = {2}", Name, Login, Password));
+            using (var db = new DatabaseContext())
+            {
+                var user = new User() {Name = Name, Login = Login, Password = Password};
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
         }
     }
 }
