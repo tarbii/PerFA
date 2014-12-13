@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="TransactionWindow" Height="380" Width="729">
     <Grid>
-        
+        <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
