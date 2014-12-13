@@ -26,12 +26,12 @@ namespace PerFA.View
             InitializeComponent();
 
 
-            using (var db = new DatabaseContext())
-            {
-                var transactions = new ObservableCollection<Transaction>(db.Transactions);
-                var binding = new Binding {Source = transactions, Mode = BindingMode.OneWay};
-                BindingOperations.SetBinding(TransactionDataGrid, ItemsControl.ItemsSourceProperty, binding);
-            }
+            //using (var db = new DatabaseContext())
+            //{
+            //    var transactions = new ObservableCollection<Transaction>(db.Transactions);
+            //    var binding = new Binding {Source = transactions, Mode = BindingMode.OneWay};
+            //    BindingOperations.SetBinding(TransactionDataGrid, ItemsControl.ItemsSourceProperty, binding);
+            //}
         }
     }
 }

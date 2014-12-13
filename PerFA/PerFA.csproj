@@ -65,8 +65,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Registration.cs" />
+    <Compile Include="Model\TransactionsClass.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\ViewModelRegistration.cs" />
+    <Compile Include="ViewModel\ViewModelTransactions.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
