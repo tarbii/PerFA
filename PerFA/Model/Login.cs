@@ -24,8 +24,8 @@ namespace PerFA.Model
         {
         }
 
-        private string loginData;
-        private string password;
+        private string loginData = "alex";
+        private string password = "alex";
         private string loginMessage = "Enter login & password";
 
         public int UserId { get; set; }

@@ -32,14 +32,10 @@ namespace PerFA.ViewModel
         {
             if (login.TryLogin())
             {
-                context.TransactionsClass = new TransactionsClass(context.Login);
-                var binding = new Binding() { Source = context.TransactionsClass.Transactions };
                 var transactionWindow = new TransactionWindow
                 {
-                    DataContext = context//new ViewModelTransactions(context.Login)
+                    DataContext = new ViewModelTransactions(context.Login)
                 };
-                BindingOperations.SetBinding(
-                    transactionWindow.TransactionDataGrid, ItemsControl.ItemsSourceProperty, binding);
                 transactionWindow.Show();
             };
         }
