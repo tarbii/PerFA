@@ -24,9 +24,11 @@ namespace PerFA.Model
         {
         }
 
-        private string loginId;
+        private string loginData;
         private string password;
         private string loginMessage = "Enter login & password";
+
+        public int UserId { get; set; }
 
         public string LoginMessage
         {
@@ -41,14 +43,14 @@ namespace PerFA.Model
             }
         }
 
-        public string LoginId
+        public string LoginData
         {
-            get { return loginId; }
+            get { return loginData; }
             set
             {
-                if (loginId != value)
+                if (loginData != value)
                 {
-                    loginId = value;
+                    loginData = value;
                     OnPropertyChanged();
                 }
             }
@@ -66,13 +68,19 @@ namespace PerFA.Model
                 }
             }
         }
-        
-        public void TryLogin()
+
+        public bool TryLogin()
         {
             using (var db = new DatabaseContext())
             {
-                var b = (db.Users.Where(x => x.Login == LoginId && x.Password == Password)).FirstOrDefault();
-                LoginMessage = b != null ? "OK" : "HUYOK"; 
+                var user = (db.Users.Where(x => x.Login == LoginData && x.Password == Password)).FirstOrDefault();
+                if (user != null)
+                {
+                    UserId = user.ID;
+                    return true;
+                }
+                LoginMessage = db.Users.Select(x => x.Login).Contains(loginData) ? "Wrong password" : "Wrong login";
+                return false;
             }
         }
     }

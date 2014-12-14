@@ -22,12 +22,12 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public TransactionsClass()
+        public TransactionsClass(Login login)
         {
             using (var db = new DatabaseContext())
             {
                 Transactions = new ObservableCollection<dynamic>(db.TransactionUsers
-                    .Where(x => x.ID_user == 3)
+                    .Where(x => x.ID_user == login.UserId)
                     .Select(x => new
                     {
                         x.Transaction.Date,
@@ -37,7 +37,7 @@ namespace PerFA.Model
                     }));
             }
         }
-
+        
         private ObservableCollection<dynamic> transactions;
 
         public ObservableCollection<dynamic> Transactions
