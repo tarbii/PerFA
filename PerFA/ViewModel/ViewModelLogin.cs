@@ -16,7 +16,7 @@ namespace PerFA.ViewModel
         public ViewModelLogin()
         {
             Login = new Login();
-            LoginCommand = new LoginCommand(Login);
+            LoginCommand = new LoginCommand(Login, this);
         }
     }
 }
