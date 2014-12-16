@@ -11,11 +11,6 @@ namespace PerFA.ViewModel
     {
         public TransactionsClass TransactionsClass { get; set; }
 
-        public ViewModelTransactions(Login login)
-        {
-            TransactionsClass = new TransactionsClass(login);
-        }
-
         public ViewModelTransactions()
         {
             

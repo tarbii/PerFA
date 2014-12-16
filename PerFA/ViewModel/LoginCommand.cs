@@ -32,11 +32,7 @@ namespace PerFA.ViewModel
         {
             if (login.TryLogin())
             {
-                var transactionWindow = new TransactionWindow
-                {
-                    DataContext = new ViewModelTransactions(context.Login)
-                };
-                transactionWindow.Show();
+                context.CreateTransactionWindowAction(context.Login);
             };
         }
 
