@@ -9,7 +9,9 @@
     </Window.DataContext>
     <Grid>
         <Grid HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="711">
-            <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding TransactionsClass.Transactions}"/>
+            <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                      ItemsSource="{Binding TransactionsClass.Transactions}" 
+                      SelectedItem="{Binding TransactionsClass.SelectedTransaction}"/>
         </Grid>
         <Button Content="View transaction" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Margin="10,248,0,0" Command="{Binding ViewTransactionCommand}"/>
 

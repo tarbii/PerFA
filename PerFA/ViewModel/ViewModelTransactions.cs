@@ -16,7 +16,7 @@ namespace PerFA.ViewModel
         public ViewModelTransactions()
         {
             TransactionsClass = new TransactionsClass();
-            ViewTransactionCommand = new ViewTransactionCommand();
+            ViewTransactionCommand = new ViewTransactionCommand(TransactionsClass);
         }
 
         public void LoadTransactions(int userId)

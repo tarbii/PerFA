@@ -26,12 +26,26 @@ namespace PerFA.Model
         {
         }
 
-        private ObservableCollection<TransactionPresentation> transactions;
+        private ReadOnlyObservableCollection<TransactionPresentation> transactions;
+        private TransactionPresentation selectedTransaction;
 
-        public ObservableCollection<TransactionPresentation> Transactions
+        public TransactionPresentation SelectedTransaction
+        {
+            get { return selectedTransaction; }
+            set
+            {
+                if (selectedTransaction != value)
+                {
+                    selectedTransaction = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ReadOnlyObservableCollection<TransactionPresentation> Transactions
         {
             get { return transactions; }
-            set
+            private set
             {
                 if (transactions != value)
                 {
@@ -45,16 +59,16 @@ namespace PerFA.Model
         {
             using (var db = new DatabaseContext())
             {
-                Transactions = new ObservableCollection<TransactionPresentation>(db.TransactionUsers
-                    .Where(x => x.ID_user == userId)
-                    .Select(x => new TransactionPresentation
-                    {
-                        Date = x.Transaction.Date,
-                        Description = x.Transaction.Description,
-                        AuthorName = x.Transaction.User.Name,
-                        Sum = x.Sum,
-                    }))
-            ;
+                Transactions = new ReadOnlyObservableCollection<TransactionPresentation>(
+                    new ObservableCollection<TransactionPresentation>(db.TransactionUsers
+                        .Where(x => x.ID_user == userId)
+                        .Select(x => new TransactionPresentation
+                        {
+                            Description = x.Transaction.Description,
+                            AuthorName = x.Transaction.User.Name,
+                            Sum = x.Sum,
+                            Date = x.Transaction.Date
+                        })));
             }
         }
     }
