@@ -69,6 +69,7 @@
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\ViewModelRegistration.cs" />
     <Compile Include="ViewModel\ViewModelTransactions.cs" />
+    <Compile Include="ViewModel\ViewTransactionCommand.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>

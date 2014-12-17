@@ -9,11 +9,14 @@ namespace PerFA.ViewModel
 {
     class ViewModelTransactions
     {
+        public ViewTransactionCommand ViewTransactionCommand { get; set; }
+
         public TransactionsClass TransactionsClass { get; set; }
 
         public ViewModelTransactions()
         {
             TransactionsClass = new TransactionsClass();
+            ViewTransactionCommand = new ViewTransactionCommand();
         }
 
         public void LoadTransactions(int userId)
