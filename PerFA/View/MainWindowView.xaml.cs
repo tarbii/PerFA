@@ -37,7 +37,13 @@ namespace PerFA.View
 
             if (vm.CreateTransactionWindowAction == null)
             {
-                vm.CreateTransactionWindowAction = x => new TransactionWindow(x).Show();
+                vm.CreateTransactionWindowAction = x =>
+                {
+                    Hide();
+                    var transactionWindow = new TransactionWindow(x);
+                    transactionWindow.Closed += (o, args) => Show();
+                    transactionWindow.Show();
+                };
             }
         }
     }
