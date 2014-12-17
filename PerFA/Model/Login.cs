@@ -77,9 +77,11 @@ namespace PerFA.Model
                 if (user != null)
                 {
                     UserId = user.ID;
+                    Password = "";
                     return true;
                 }
                 LoginMessage = db.Users.Select(x => x.Login).Contains(loginData) ? "Wrong password" : "Wrong login";
+                Password = "";
                 return false;
             }
         }
