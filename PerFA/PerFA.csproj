@@ -75,7 +75,7 @@
     <Compile Include="View\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\MainWindowView.xaml">
+    <Page Include="View\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -87,8 +87,8 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\LoginCommand.cs" />
     <Compile Include="ViewModel\ViewModelLogin.cs" />
-    <Compile Include="View\MainWindowView.xaml.cs">
-      <DependentUpon>MainWindowView.xaml</DependentUpon>
+    <Compile Include="View\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\RegistrationWindow.xaml">

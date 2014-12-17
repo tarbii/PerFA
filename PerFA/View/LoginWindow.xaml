@@ -1,8 +1,8 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.MainWindowView"
-        Title="MainWindow" Height="350" Width="525" DataContextChanged="Window_DataContextChanged">
+        xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.LoginWindow"
+        Title="LoginWindow" Height="350" Width="525" DataContextChanged="Window_DataContextChanged">
     <Window.DataContext>
         <ViewModel:ViewModelLogin/>
     </Window.DataContext>
