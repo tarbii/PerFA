@@ -19,7 +19,7 @@ namespace PerFA.ViewModel
 
         public LoginCommand(Login example, ViewModelLogin context)
         {
-            this.login = example;
+            login = example;
             this.context = context;
         }
 
@@ -32,8 +32,8 @@ namespace PerFA.ViewModel
         {
             if (login.TryLogin())
             {
-                context.CreateTransactionWindowAction(context.Login);
-            };
+                context.CreateTransactionWindowAction(context.Login.UserId);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

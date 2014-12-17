@@ -9,7 +9,7 @@ namespace PerFA.ViewModel
 {
     class ViewModelLogin
     {
-        public Action<Login> CreateTransactionWindowAction { get; set; }
+        public Action<int> CreateTransactionWindowAction { get; set; }
 
         public Login Login { get; set; }
 

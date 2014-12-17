@@ -13,24 +13,6 @@ namespace PerFA.View
         public MainWindowView()
         {
             InitializeComponent();
-            //var vm = new ViewModelLogin();
-            //DataContext = vm;
-            //if (vm.CreateTransactionWindowAction == null)
-            //{
-            //    vm.CreateTransactionWindowAction = x =>
-            //    {
-            //        var transactionWindow = new TransactionWindow
-            //        {
-            //            DataContext = new ViewModelTransactions
-            //            {
-            //                TransactionsClass = new TransactionsClass(x)
-            //            }
-            //        };
-            //        transactionWindow.Show();
-            //    };
-            //}
-
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -41,7 +23,7 @@ namespace PerFA.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new TransactionWindow().Show();
+            new TransactionWindow(3).Show();
         }
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -55,19 +37,8 @@ namespace PerFA.View
 
             if (vm.CreateTransactionWindowAction == null)
             {
-                vm.CreateTransactionWindowAction = x =>
-                {
-                    var transactionWindow = new TransactionWindow
-                    {
-                        DataContext = new ViewModelTransactions
-                        {
-                            TransactionsClass = new TransactionsClass(x)
-                        }
-                    };
-                    transactionWindow.Show();
-                };
+                vm.CreateTransactionWindowAction = x => new TransactionWindow(x).Show();
             }
-
         }
     }
 }

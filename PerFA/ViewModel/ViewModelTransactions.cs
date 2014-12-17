@@ -13,7 +13,12 @@ namespace PerFA.ViewModel
 
         public ViewModelTransactions()
         {
-            
+            TransactionsClass = new TransactionsClass();
+        }
+
+        public void LoadTransactions(int userId)
+        {
+            TransactionsClass.LoadTransactions(userId);
         }
     }
 }

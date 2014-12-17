@@ -22,20 +22,8 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public TransactionsClass(Login login)
+        public TransactionsClass()
         {
-            using (var db = new DatabaseContext())
-            {
-                Transactions = new ObservableCollection<dynamic>(db.TransactionUsers
-                    .Where(x => x.ID_user == login.UserId)
-                    .Select(x => new
-                    {
-                        x.Transaction.Date,
-                        x.Transaction.Description,
-                        x.Sum,
-                        AuthorName = x.Transaction.User.Name,
-                    }));
-            }
         }
         
         private ObservableCollection<dynamic> transactions;
@@ -50,6 +38,22 @@ namespace PerFA.Model
                     transactions = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        public void LoadTransactions(int userId)
+        {
+            using (var db = new DatabaseContext())
+            {
+                Transactions = new ObservableCollection<dynamic>(db.TransactionUsers
+                    .Where(x => x.ID_user == userId)
+                    .Select(x => new
+                    {
+                        x.Transaction.Date,
+                        x.Transaction.Description,
+                        x.Sum,
+                        AuthorName = x.Transaction.User.Name,
+                    }));
             }
         }
     }

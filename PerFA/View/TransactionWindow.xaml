@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel"
         x:Class="PerFA.View.TransactionWindow"
-        Title="TransactionWindow" Height="380" Width="729">
+        Title="TransactionWindow" Height="380" Width="729" DataContextChanged="Window_DataContextChanged">
     <Window.DataContext>
         <ViewModel:ViewModelTransactions/>
     </Window.DataContext>

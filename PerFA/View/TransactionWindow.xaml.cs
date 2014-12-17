@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using PerFA.Model.Database;
+using PerFA.ViewModel;
 
 namespace PerFA.View
 {
@@ -21,9 +21,24 @@ namespace PerFA.View
     /// </summary>
     public partial class TransactionWindow : Window
     {
-        public TransactionWindow()
+        private readonly int userId;
+
+        public TransactionWindow(int userId)
         {
+            this.userId = userId;
             InitializeComponent();
+        }
+
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var vm = e.NewValue as ViewModelTransactions;
+
+            if (vm == null)
+            {
+                throw new Exception("Wrong DataContext");
+            }
+
+            vm.LoadTransactions(userId);
         }
     }
 }
