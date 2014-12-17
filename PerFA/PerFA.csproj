@@ -69,10 +69,14 @@
     <Compile Include="Model\TransactionsClass.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\ViewModelRegistration.cs" />
-    <Compile Include="ViewModel\ViewModelTransactions.cs" />
-    <Compile Include="ViewModel\ViewTransactionCommand.cs" />
+    <Compile Include="ViewModel\VMAllTransactions.cs" />
+    <Compile Include="ViewModel\VMTransactionCommand.cs" />
+    <Compile Include="ViewModel\VMTransaction.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AllTransactionsWindow.xaml.cs">
+      <DependentUpon>AllTransactionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
@@ -94,6 +98,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AllTransactionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,17 +13,5 @@ namespace PerFA.Model
         public decimal? Sum { get; set; }
         public string AuthorName { get; set; }
 
-        public TransactionPresentation(string description, string authorName, decimal? sum, DateTime? date)
-        {
-            Date = date;
-            Description = description;
-            Sum = sum;
-            AuthorName = authorName;
-        }
-
-        public TransactionPresentation()
-        {
-            
-        }
     }
 }

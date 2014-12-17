@@ -9,11 +9,11 @@ using PerFA.Model;
 
 namespace PerFA.ViewModel
 {
-    class ViewTransactionCommand : ICommand
+    class VMTransactionCommand : ICommand
     {
         private readonly TransactionsClass transactions;
 
-        public ViewTransactionCommand(TransactionsClass transactions)
+        public VMTransactionCommand(TransactionsClass transactions)
         {
             this.transactions = transactions;
         }

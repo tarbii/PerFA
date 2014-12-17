@@ -7,16 +7,16 @@ using PerFA.Model;
 
 namespace PerFA.ViewModel
 {
-    class ViewModelTransactions
+    class VMAllTransactions
     {
-        public ViewTransactionCommand ViewTransactionCommand { get; set; }
+        public VMTransactionCommand ViewTransactionCommand { get; set; }
 
         public TransactionsClass TransactionsClass { get; set; }
 
-        public ViewModelTransactions()
+        public VMAllTransactions()
         {
             TransactionsClass = new TransactionsClass();
-            ViewTransactionCommand = new ViewTransactionCommand(TransactionsClass);
+            ViewTransactionCommand = new VMTransactionCommand(TransactionsClass);
         }
 
         public void LoadTransactions(int userId)

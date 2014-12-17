@@ -23,7 +23,7 @@ namespace PerFA.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new TransactionWindow(3).Show();
+            new AllTransactionsWindow(3).Show();
         }
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -40,7 +40,7 @@ namespace PerFA.View
                 vm.CreateTransactionWindowAction = x =>
                 {
                     Hide();
-                    var transactionWindow = new TransactionWindow(x);
+                    var transactionWindow = new AllTransactionsWindow(x);
                     transactionWindow.Closed += (o, args) => Show();
                     transactionWindow.Show();
                 };
