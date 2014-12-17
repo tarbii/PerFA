@@ -25,10 +25,10 @@ namespace PerFA.Model
         public TransactionsClass()
         {
         }
-        
-        private ObservableCollection<dynamic> transactions;
 
-        public ObservableCollection<dynamic> Transactions
+        private ObservableCollection<TransactionPresentation> transactions;
+
+        public ObservableCollection<TransactionPresentation> Transactions
         {
             get { return transactions; }
             set
@@ -45,15 +45,16 @@ namespace PerFA.Model
         {
             using (var db = new DatabaseContext())
             {
-                Transactions = new ObservableCollection<dynamic>(db.TransactionUsers
+                Transactions = new ObservableCollection<TransactionPresentation>(db.TransactionUsers
                     .Where(x => x.ID_user == userId)
-                    .Select(x => new
+                    .Select(x => new TransactionPresentation
                     {
-                        x.Transaction.Date,
-                        x.Transaction.Description,
-                        x.Sum,
+                        Date = x.Transaction.Date,
+                        Description = x.Transaction.Description,
                         AuthorName = x.Transaction.User.Name,
-                    }));
+                        Sum = x.Sum,
+                    }))
+            ;
             }
         }
     }
