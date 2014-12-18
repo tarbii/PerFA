@@ -12,7 +12,13 @@
             <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" 
                       ItemsSource="{Binding TransactionsClass.Transactions}" 
                       SelectedItem="{Binding TransactionsClass.SelectedTransaction}"
-                      IsReadOnly ="True"/>
+                      IsReadOnly ="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding
+                        MouseAction="LeftDoubleClick"
+                        Command ="{Binding ViewTransactionCommand}"/>
+                </DataGrid.InputBindings>
+            </DataGrid>
         </Grid>
         <Button Content="View transaction" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Width="113" Margin="10,248,0,0" Command="{Binding ViewTransactionCommand}"/>
