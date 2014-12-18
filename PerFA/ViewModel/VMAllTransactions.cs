@@ -14,11 +14,11 @@ namespace PerFA.ViewModel
 
         public ViewTransactionCommand VMTransactionCommand { get; set; }
 
-        public TransactionsClass TransactionsClass { get; set; }
+        public AllTransactionsClass TransactionsClass { get; set; }
 
         public VMAllTransactions()
         {
-            TransactionsClass = new TransactionsClass();
+            TransactionsClass = new AllTransactionsClass();
             TransactionsClass.TransactionLoadSucceed += 
                 TransactionsClass_TransactionLoadSucceed;
             TransactionsClass.TransactionLoadFailed += TransactionsClass_TransactionLoadFailed;

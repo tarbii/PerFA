@@ -66,7 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\TransactionPresentation.cs" />
-    <Compile Include="Model\TransactionsClass.cs" />
+    <Compile Include="Model\AllTransactionsClass.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />

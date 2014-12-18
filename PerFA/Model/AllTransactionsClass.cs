@@ -11,7 +11,7 @@ using PerFA.Model.Database;
 
 namespace PerFA.Model
 {
-    class TransactionsClass : INotifyPropertyChanged
+    class AllTransactionsClass : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

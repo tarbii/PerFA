@@ -11,9 +11,9 @@ namespace PerFA.ViewModel
 {
     class ViewTransactionCommand : ICommand
     {
-        private readonly TransactionsClass transactions;
+        private readonly AllTransactionsClass transactions;
 
-        public ViewTransactionCommand(TransactionsClass transactions)
+        public ViewTransactionCommand(AllTransactionsClass transactions)
         {
             this.transactions = transactions;
         }
