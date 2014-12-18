@@ -42,7 +42,9 @@ namespace PerFA.Model
             using (var db = new DatabaseContext())
             {
                 var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
-                    .Select(x => x.User.Name);
+                    .Select(x => new { x.User.Name, x.Sum })
+                    .ToDictionary(x => x.Name, x => x.Sum);
+
                 Transaction = db.TransactionUsers
                     .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
                     .Select(x => new DetailedTransaction
@@ -51,8 +53,9 @@ namespace PerFA.Model
                         AuthorName = x.Transaction.User.Name,
                         Sum = x.Sum,
                         Date = x.Transaction.Date,
-                        UsersList = users.ToList()
                     }).First();
+
+                Transaction.UsersSumsDictionary = users;
             }
         }
     }

@@ -13,6 +13,7 @@ namespace PerFA.Model
         public decimal? Sum { get; set; }
         public string AuthorName { get; set; }
         public string Type { get; set; }
-        public List<string> UsersList { get; set; }
+        public Dictionary<string, decimal?> UsersSumsDictionary { get; set; }
+        
     }
 }

@@ -8,14 +8,14 @@
     </Window.DataContext>
     <Grid>
         <Label Content="Дата" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Content="Опис" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-3,151,0,0"/>
-        <Label Content="Сума" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,105,0,0"/>
-        <Label Content="Автор" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,52,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Date}" VerticalAlignment="Top" Width="120" Margin="89,10,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}" VerticalAlignment="Top" Width="120" Margin="89,151,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}" VerticalAlignment="Top" Width="120" Margin="74,105,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName}" VerticalAlignment="Top" Width="120" Margin="74,54,0,0"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,217,0,0" ItemsSource="{Binding Transaction.Transaction.UsersList}"/>
+        <Label Content="Опис" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,78,0,0"/>
+        <Label Content="Сума" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-3,52,0,0"/>
+        <Label Content="Автор" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,26,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Date}" VerticalAlignment="Top" Width="120" Margin="60,3,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}" VerticalAlignment="Top" Width="120" Margin="60,87,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}" VerticalAlignment="Top" Width="120" Margin="60,59,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName}" VerticalAlignment="Top" Width="120" Margin="60,31,0,0"/>
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
 
     </Grid>
 </Window>
