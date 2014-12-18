@@ -15,6 +15,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}" VerticalAlignment="Top" Width="120" Margin="89,151,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}" VerticalAlignment="Top" Width="120" Margin="74,105,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName}" VerticalAlignment="Top" Width="120" Margin="74,54,0,0"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,217,0,0" ItemsSource="{Binding Transaction.Transaction.UsersList}"/>
 
     </Grid>
 </Window>

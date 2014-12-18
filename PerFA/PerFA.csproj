@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DetailedTransaction.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\TransactionClass.cs" />
     <Compile Include="Model\TransactionPresentation.cs" />

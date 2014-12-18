@@ -22,9 +22,9 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private TransactionPresentation transaction;
+        private DetailedTransaction transaction;
 
-        public TransactionPresentation Transaction
+        public DetailedTransaction Transaction
         {
             get { return transaction; }
             set
@@ -41,16 +41,17 @@ namespace PerFA.Model
         {
             using (var db = new DatabaseContext())
             {
+                var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
+                    .Select(x => x.User.Name);
                 Transaction = db.TransactionUsers
                     .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
-                    .Select(x => new TransactionPresentation
+                    .Select(x => new DetailedTransaction
                     {
                         Description = x.Transaction.Description,
                         AuthorName = x.Transaction.User.Name,
                         Sum = x.Sum,
                         Date = x.Transaction.Date,
-                        UserId = x.ID_user,
-                        TransactionId = x.ID_transaction
+                        UsersList = users.ToList()
                     }).First();
             }
         }

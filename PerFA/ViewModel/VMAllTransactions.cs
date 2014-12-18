@@ -12,7 +12,7 @@ namespace PerFA.ViewModel
         public Action<int, int> CreateTransactionWindowAction { get; set; }
         public Action<string> ShowMessageBoxAction { get; set; }
 
-        public ViewTransactionCommand VMTransactionCommand { get; set; }
+        public ViewTransactionCommand ViewTransactionCommand { get; set; }
 
         public AllTransactionsClass TransactionsClass { get; set; }
 
@@ -22,7 +22,7 @@ namespace PerFA.ViewModel
             TransactionsClass.TransactionLoadSucceed += 
                 TransactionsClass_TransactionLoadSucceed;
             TransactionsClass.TransactionLoadFailed += TransactionsClass_TransactionLoadFailed;
-            VMTransactionCommand = new ViewTransactionCommand(TransactionsClass);
+            ViewTransactionCommand = new ViewTransactionCommand(TransactionsClass);
         }
 
         void TransactionsClass_TransactionLoadFailed(string message)
