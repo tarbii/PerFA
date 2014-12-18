@@ -18,13 +18,13 @@ namespace PerFA.ViewModel
         public VMLogin()
         {
             Login = new Login();
-            Login.LoginSucceed += LoginOnLoginSucceed;
+            Login.LoginSucceed += Login_LoginSucceed;
             LoginCommand = new LoginCommand(Login);
         }
 
-        private void LoginOnLoginSucceed(int i)
+        private void Login_LoginSucceed(int userId)
         {
-            CreateAllTransactionsWindowAction(i);
+            CreateAllTransactionsWindowAction(userId);
         }
     }
 }

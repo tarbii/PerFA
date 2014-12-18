@@ -68,13 +68,9 @@ namespace PerFA.Model
 
         private void OnLoginSucceed(int userId)
         {
-            var del = LoginSucceed;
-            if (del != null)
-            {
-                del(userId);
-            }
+            var handler = LoginSucceed;
+            if (handler != null) handler(userId);
         }
-
 
         public void TryLogin()
         {

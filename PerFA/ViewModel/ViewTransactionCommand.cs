@@ -25,11 +25,7 @@ namespace PerFA.ViewModel
 
         public void Execute(object parameter)
         {
-            if (transactions.SelectedTransaction != null)
-            {
-                MessageBox.Show(transactions.SelectedTransaction.TransactionId.ToString());
-            }
-            else MessageBox.Show("No TransactionSelected");
+            transactions.TryLoadTransaction();
         }
 
         public event EventHandler CanExecuteChanged;

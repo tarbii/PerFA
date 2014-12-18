@@ -22,10 +22,6 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public TransactionsClass()
-        {
-        }
-
         private ReadOnlyObservableCollection<TransactionPresentation> transactions;
         private TransactionPresentation selectedTransaction;
 
@@ -73,6 +69,36 @@ namespace PerFA.Model
                         })));
             }
         }
+
+        public event Action<int, int> TransactionLoadSucceed;
+
+        private void OnTransactionLoadSucceed(int userId, int transactionId)
+        {
+            var handler = TransactionLoadSucceed;
+            if (handler != null) handler(userId, transactionId);
+        }
+
+        public event Action<string> TransactionLoadFailed;
+
+        private void OnTransactionLoadFailed(string message)
+        {
+            var handler = TransactionLoadFailed;
+            if (handler != null) handler(message);
+        }
+
+        public void TryLoadTransaction()
+        {
+            if (SelectedTransaction != null)
+            {
+                OnTransactionLoadSucceed(
+                    SelectedTransaction.UserId, SelectedTransaction.TransactionId);
+            }
+            else
+            {
+                OnTransactionLoadFailed("Select transaction.");
+            }
+        }
+
 
     }
 }
