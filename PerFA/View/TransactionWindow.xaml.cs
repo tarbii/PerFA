@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PerFA.ViewModel;
 
 namespace PerFA.View
 {
@@ -27,6 +28,16 @@ namespace PerFA.View
             this.userId = userId;
             this.transactionId = transactionId;
             InitializeComponent();
+        }
+
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var vm = e.NewValue as VMTransaction;
+            if (vm == null)
+            {
+                throw new Exception("Wrong DataContext");
+            }
+            vm.LoadTransaction(userId, transactionId);
         }
     }
 }

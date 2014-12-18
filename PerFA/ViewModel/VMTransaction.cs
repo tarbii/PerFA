@@ -9,11 +9,16 @@ namespace PerFA.ViewModel
 {
     class VMTransaction
     {
-        public TransactionPresentation Transaction { get; set; }
+        public TransactionClass Transaction { get; set; }
 
         public VMTransaction()
         {
-            
+            Transaction = new TransactionClass();
+        }
+
+        public void LoadTransaction(int userId, int transactionId)
+        {
+            Transaction.LoadTransaction(userId, transactionId);
         }
     }
 }
