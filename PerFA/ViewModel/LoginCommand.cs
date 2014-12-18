@@ -14,13 +14,11 @@ namespace PerFA.ViewModel
 {
     class LoginCommand : ICommand
     {
-        private readonly ViewModelLogin context;
         private readonly Login login;
 
-        public LoginCommand(Login example, ViewModelLogin context)
+        public LoginCommand(Login login)
         {
-            login = example;
-            this.context = context;
+            this.login = login;
         }
 
         public bool CanExecute(object parameter)
@@ -30,10 +28,7 @@ namespace PerFA.ViewModel
 
         public void Execute(object parameter)
         {
-            if (login.TryLogin())
-            {
-                context.CreateTransactionWindowAction(context.Login.UserId);
-            }
+            login.TryLogin();
         }
 
         public event EventHandler CanExecuteChanged;

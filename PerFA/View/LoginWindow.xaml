@@ -4,7 +4,7 @@
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.LoginWindow"
         Title="LoginWindow" Height="350" Width="525" DataContextChanged="Window_DataContextChanged">
     <Window.DataContext>
-        <ViewModel:ViewModelLogin/>
+        <ViewModel:VMLogin/>
     </Window.DataContext>
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Login.LoginData, Mode=Default}" VerticalAlignment="Top" Width="120" Margin="128,56,0,0"/>

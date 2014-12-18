@@ -28,21 +28,21 @@ namespace PerFA.View
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var vm = e.NewValue as ViewModelLogin;
+            var vm = e.NewValue as VMLogin;
 
             if (vm == null)
             {
                 throw new Exception("Wrong DataContext");
             }
 
-            if (vm.CreateTransactionWindowAction == null)
+            if (vm.CreateAllTransactionsWindowAction == null)
             {
-                vm.CreateTransactionWindowAction = x =>
+                vm.CreateAllTransactionsWindowAction = x =>
                 {
                     Hide();
-                    var transactionWindow = new AllTransactionsWindow(x);
-                    transactionWindow.Closed += (o, args) => Show();
-                    transactionWindow.Show();
+                    var allTransactionWindow = new AllTransactionsWindow(x);
+                    allTransactionWindow.Closed += (o, args) => Show();
+                    allTransactionWindow.Show();
                 };
             }
         }

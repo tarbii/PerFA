@@ -20,15 +20,10 @@ namespace PerFA.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-        public Login()
-        {
-        }
 
         private string loginData = "alex";
         private string password = "alex";
         private string loginMessage = "Enter login & password";
-
-        public int UserId { get; set; }
 
         public string LoginMessage
         {
@@ -69,20 +64,33 @@ namespace PerFA.Model
             }
         }
 
-        public bool TryLogin()
+        public event Action<int> LoginSucceed;
+
+        private void OnLoginSucceed(int userId)
+        {
+            var del = LoginSucceed;
+            if (del != null)
+            {
+                del(userId);
+            }
+        }
+
+
+        public void TryLogin()
         {
             using (var db = new DatabaseContext())
             {
                 var user = (db.Users.Where(x => x.Login == LoginData && x.Password == Password)).FirstOrDefault();
+                Password = "";
                 if (user != null)
                 {
-                    UserId = user.ID;
-                    Password = "";
-                    return true;
+                    OnLoginSucceed(user.ID);
                 }
-                LoginMessage = db.Users.Select(x => x.Login).Contains(loginData) ? "Wrong password" : "Wrong login";
-                Password = "";
-                return false;
+                else
+                {
+                    LoginMessage = db.Users.Select(x => x.Login).Contains(loginData)
+                        ? "Wrong password" : "Wrong login";
+                }
             }
         }
     }

@@ -7,13 +7,13 @@ using PerFA.Model;
 
 namespace PerFA.ViewModel
 {
-    class ViewModelRegistration
+    class VMRegistration
     {
         public Registration Registration { get; set; }
 
         public RegistrateCommand RegistrateCommand { get; set; }
 
-        public ViewModelRegistration()
+        public VMRegistration()
         {
             Registration = new Registration();
             RegistrateCommand = new RegistrateCommand(Registration);

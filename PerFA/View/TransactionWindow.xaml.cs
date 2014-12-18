@@ -17,10 +17,15 @@ namespace PerFA.View
     /// <summary>
     /// Interaction logic for TransactionWindow.xaml
     /// </summary>
-    public partial class AllTransactionsWindow : Window
+    public partial class TransactionWindow : Window
     {
-        public AllTransactionsWindow()
+        private readonly int userId;
+        private readonly int transactionId;
+
+        public TransactionWindow(int userId, int transactionId)
         {
+            this.userId = userId;
+            this.transactionId = transactionId;
             InitializeComponent();
         }
     }

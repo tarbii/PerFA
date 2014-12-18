@@ -4,7 +4,7 @@
         xmlns:Model="clr-namespace:PerFA.Model" xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.RegistrationWindow"
         Title="RegistrationWindow" Height="300" Width="562">
     <Window.DataContext>
-        <ViewModel:ViewModelRegistration/>
+        <ViewModel:VMRegistration/>
     </Window.DataContext>
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" Margin="289,22,0,0" RenderTransformOrigin="0.5,0.5" Text="{Binding Registration.Name, Mode=Default}"/>

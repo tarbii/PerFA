@@ -67,9 +67,12 @@ namespace PerFA.Model
                             Description = x.Transaction.Description,
                             AuthorName = x.Transaction.User.Name,
                             Sum = x.Sum,
-                            Date = x.Transaction.Date
+                            Date = x.Transaction.Date,
+                            UserId = x.ID_user,
+                            TransactionId = x.ID_transaction
                         })));
             }
         }
+
     }
 }

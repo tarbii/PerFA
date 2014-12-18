@@ -9,11 +9,11 @@ using PerFA.Model;
 
 namespace PerFA.ViewModel
 {
-    class VMTransactionCommand : ICommand
+    class ViewTransactionCommand : ICommand
     {
         private readonly TransactionsClass transactions;
 
-        public VMTransactionCommand(TransactionsClass transactions)
+        public ViewTransactionCommand(TransactionsClass transactions)
         {
             this.transactions = transactions;
         }
@@ -27,7 +27,7 @@ namespace PerFA.ViewModel
         {
             if (transactions.SelectedTransaction != null)
             {
-                MessageBox.Show(transactions.SelectedTransaction.Description);
+                MessageBox.Show(transactions.SelectedTransaction.TransactionId.ToString());
             }
             else MessageBox.Show("No TransactionSelected");
         }

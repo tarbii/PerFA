@@ -8,6 +8,8 @@ namespace PerFA.Model
 {
     class TransactionPresentation
     {
+        public int UserId;
+        public int TransactionId;
         public DateTime? Date { get; set; }
         public string Description { get; set; }
         public decimal? Sum { get; set; }

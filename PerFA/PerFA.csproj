@@ -68,9 +68,9 @@
     <Compile Include="Model\TransactionPresentation.cs" />
     <Compile Include="Model\TransactionsClass.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
-    <Compile Include="ViewModel\ViewModelRegistration.cs" />
+    <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />
-    <Compile Include="ViewModel\VMTransactionCommand.cs" />
+    <Compile Include="ViewModel\ViewTransactionCommand.cs" />
     <Compile Include="ViewModel\VMTransaction.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
@@ -92,7 +92,7 @@
     <Compile Include="Model\Login.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\LoginCommand.cs" />
-    <Compile Include="ViewModel\ViewModelLogin.cs" />
+    <Compile Include="ViewModel\VMLogin.cs" />
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
