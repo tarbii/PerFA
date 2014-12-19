@@ -84,6 +84,7 @@ namespace PerFA.Model
             if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
             {
                 Transaction.Type = "Побутові витрати";
+                Transaction.IsHouseholdExpensesTransaction = true;
                 Transaction.HouseholdExpensesDetails = db.HouseholdExpences
                     .Where(x => x.ID == Transaction.TransactionId)
                     .Select(x => new DTHouseholdExpenses
@@ -116,6 +117,14 @@ namespace PerFA.Model
             if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
             {
                 Transaction.Type = "Заробітня плата";
+                Transaction.IsWageTransaction = true;
+                Transaction.WageDetails = db.Wages
+                    .Where(x => x.ID == Transaction.TransactionId)
+                    .Select(x => new DTWage
+                    {
+                        WorkPlace = x.Workplace,
+                        WageRate = x.Wage_rate
+                    }).First();
                 return;
             }
             Transaction.Type = "Тип транзакції невідомий";

@@ -70,6 +70,7 @@
     <Compile Include="Model\TransactionPresentation.cs" />
     <Compile Include="Model\AllTransactionsClass.cs" />
     <Compile Include="Model\TransactionTypes\DTHouseholdExpenses.cs" />
+    <Compile Include="Model\TransactionTypes\DTWage.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />

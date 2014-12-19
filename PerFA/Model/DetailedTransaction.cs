@@ -20,5 +20,8 @@ namespace PerFA.Model
         public Dictionary<string, decimal?> UsersSumsDictionary { get; set; }
         public string Type { get; set; }
         public DTHouseholdExpenses HouseholdExpensesDetails { get; set; }
+        public DTWage WageDetails { get; set; }
+        public bool IsHouseholdExpensesTransaction { get; set; }
+        public bool IsWageTransaction { get; set; }
     }
 }
