@@ -44,19 +44,73 @@ namespace PerFA.Model
                 var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
                     .Select(x => new { x.User.Name, x.Sum })
                     .ToDictionary(x => x.Name, x => x.Sum);
-
+                
                 Transaction = db.TransactionUsers
                     .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
                     .Select(x => new DetailedTransaction
                     {
                         Description = x.Transaction.Description,
+                        UserName = x.User.Name,
                         AuthorName = x.Transaction.User.Name,
                         Sum = x.Sum,
                         Date = x.Transaction.Date,
+                        UserId = userId,
+                        TransactionId = transactionId,
                     }).First();
 
+                GetTypeofTransaction(db);
                 Transaction.UsersSumsDictionary = users;
             }
+        }
+
+        private void GetTypeofTransaction(DatabaseContext db)
+        {
+            if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Витрати по кредиту";
+                return;
+            }
+            if (db.Deposits.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Дохід по депозиту";
+                return;
+            }
+            if (db.Grants.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Стипендія";
+                return;
+            }
+            if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Побутові витрати";
+                return;
+            }
+            if (db.LongTermExpences.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Довгострокові витрати";
+                return;
+            }
+            if (db.OtherExpences.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Витрати";
+                return;
+            }
+            if (db.OtherIncomes.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Інший дохід";
+                return;
+            }
+            if (db.Rents.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Оренда житла";
+                return;
+            }
+            if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
+            {
+                Transaction.Type = "Заробітня плата";
+                return;
+            }
+            Transaction.Type = "Тип транзакції невідомий";
         }
     }
 }
