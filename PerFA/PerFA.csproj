@@ -82,6 +82,7 @@
     <Compile Include="View\AllTransactionsWindow.xaml.cs">
       <DependentUpon>AllTransactionsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SaveChangesCommand.cs" />
     <Compile Include="View\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>

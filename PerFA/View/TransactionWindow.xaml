@@ -24,12 +24,12 @@
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Date}" VerticalAlignment="Top" Width="120" Margin="60,3,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}" VerticalAlignment="Top" Width="120" Margin="60,87,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}" VerticalAlignment="Top" Width="120" Margin="60,59,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName}" VerticalAlignment="Top" Width="120" Margin="60,31,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.UserName}" VerticalAlignment="Top" Width="120" Margin="60,115,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName, Mode=OneTime}" IsReadOnly="True" VerticalAlignment="Top" Width="120" Margin="60,31,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.UserName, Mode=OneTime}" IsReadOnly="True" VerticalAlignment="Top" Width="120" Margin="60,115,0,0"/>
         <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
         <StackPanel Margin="0" Grid.Column="1" VerticalAlignment="Top">
             <StackPanel x:Name="StackPanelHE" VerticalAlignment="Top" 
-                        Visibility="{Binding Transaction.Transaction.IsHouseholdExpensesTransaction, 
+                        Visibility="{Binding Transaction.Transaction.HasHouseholdExpensesDetails, 
                 Converter={StaticResource BooleanToVisibilityConverter}}">
                 <DockPanel>
                     <Label Content="Категорія" HorizontalContentAlignment="Right"/>
@@ -45,7 +45,7 @@
                 </DockPanel>
             </StackPanel>
             <StackPanel x:Name="StackPanelWages" VerticalAlignment="Top" 
-                        Visibility="{Binding Transaction.Transaction.IsWageTransaction, 
+                        Visibility="{Binding Transaction.Transaction.HasWageDetails, 
                 Converter={StaticResource BooleanToVisibilityConverter}}">
                 <DockPanel>
                     <Label Content="Місце роботи" HorizontalContentAlignment="Right"/>
@@ -61,5 +61,6 @@
                 </DockPanel>
             </StackPanel>
         </StackPanel>
+        <Button Content="Save Changes" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Command="{Binding SaveChangesCommand}"/>
     </Grid>
 </Window>

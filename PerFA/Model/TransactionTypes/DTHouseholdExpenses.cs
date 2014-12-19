@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
+using PerFA.Model.Database;
 
 namespace PerFA.Model.TransactionTypes
 {
@@ -20,17 +21,20 @@ namespace PerFA.Model.TransactionTypes
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string subType;
-        private string comment;
+        private readonly HouseholdExpence householdExpence;
+        public DTHouseholdExpenses(HouseholdExpence householdExpence)
+        {
+            this.householdExpence = householdExpence;
+        }
 
         public string SubType
         {
-            get { return subType; }
+            get { return householdExpence.HE_type; }
             set
             {
-                if (subType != value)
+                if (householdExpence.HE_type != value)
                 {
-                    subType = value;
+                    householdExpence.HE_type = value;
                     OnPropertyChanged();
                 }
             }
@@ -38,12 +42,12 @@ namespace PerFA.Model.TransactionTypes
 
         public string Comment
         {
-            get { return comment; }
+            get { return householdExpence.Comment; }
             set
             {
-                if (comment != value)
+                if (householdExpence.Comment != value)
                 {
-                    comment = value;
+                    householdExpence.Comment = value;
                     OnPropertyChanged();
                 }
             }

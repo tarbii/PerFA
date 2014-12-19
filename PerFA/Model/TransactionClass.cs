@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -24,6 +25,7 @@ namespace PerFA.Model
         }
 
         private DetailedTransaction transaction;
+        private DatabaseContext db;
 
         public DetailedTransaction Transaction
         {
@@ -40,92 +42,99 @@ namespace PerFA.Model
 
         public void LoadTransaction(int userId, int transactionId)
         {
-            using (var db = new DatabaseContext())
-            {
-                var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
-                    .Select(x => new { x.User.Name, x.Sum })
-                    .ToDictionary(x => x.Name, x => x.Sum);
-                
-                Transaction = db.TransactionUsers
-                    .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
-                    .Select(x => new DetailedTransaction
-                    {
-                        Description = x.Transaction.Description,
-                        UserName = x.User.Name,
-                        AuthorName = x.Transaction.User.Name,
-                        Sum = x.Sum,
-                        Date = x.Transaction.Date,
-                        UserId = userId,
-                        TransactionId = transactionId,
-                    }).First();
+            //var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
+            //    .Select(x => new { x.User.Name, x.Sum })
+            //    .ToDictionary(x => x.Name, x => x.Sum);
 
-                SetTypeofTransaction(db);
-                Transaction.UsersSumsDictionary = users;
-            }
+            //Transaction = db.TransactionUsers
+            //    .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
+            //    .Select(x => new DetailedTransaction
+            //    {
+            //        Description = x.Transaction.Description,
+            //        UserName = x.User.Name,
+            //        AuthorName = x.Transaction.User.Name,
+            //        Sum = x.Sum,
+            //        Date = x.Transaction.Date,
+            //        UserId = userId,
+            //        TransactionId = transactionId,
+            //    }).First();
+
+            //SetTypeofTransaction(db);
+            //Transaction.UsersSumsDictionary = users;
+
+            db = new DatabaseContext();
+            var transactionUser = db.TransactionUsers
+                .First(x => x.ID_user == userId && x.ID_transaction == transactionId);
+            Transaction = new DetailedTransaction(transactionUser);
+
         }
 
-        private void SetTypeofTransaction(DatabaseContext db)
+        public void SaveChanges()
         {
-            if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Витрати по кредиту";
-                return;
-            }
-            if (db.Deposits.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Дохід по депозиту";
-                return;
-            }
-            if (db.Grants.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Стипендія";
-                return;
-            }
-            if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Побутові витрати";
-                Transaction.HouseholdExpensesDetails = db.HouseholdExpences
-                    .Where(x => x.ID == Transaction.TransactionId)
-                    .Select(x => new DTHouseholdExpenses
-                    {
-                        SubType = x.HE_type,
-                        Comment = x.Comment
-                    }).First();
-                return;
-            }
-            if (db.LongTermExpences.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Довгострокові витрати";
-                return;
-            }
-            if (db.OtherExpences.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Витрати";
-                return;
-            }
-            if (db.OtherIncomes.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Інший дохід";
-                return;
-            }
-            if (db.Rents.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Оренда житла";
-                return;
-            }
-            if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
-            {
-                Transaction.Type = "Заробітня плата";
-                Transaction.WageDetails = db.Wages
-                    .Where(x => x.ID == Transaction.TransactionId)
-                    .Select(x => new DTWage
-                    {
-                        WorkPlace = x.Workplace,
-                        WageRate = x.Wage_rate
-                    }).First();
-                return;
-            }
-            Transaction.Type = "Тип транзакції невідомий";
+            db.SaveChanges();
         }
+        //private void SetTypeofTransaction(DatabaseContext db)
+        //{
+        //    if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Витрати по кредиту";
+        //        return;
+        //    }
+        //    if (db.Deposits.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Дохід по депозиту";
+        //        return;
+        //    }
+        //    if (db.Grants.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Стипендія";
+        //        return;
+        //    }
+        //    if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "";
+        //        Transaction.HouseholdExpensesDetails = db.HouseholdExpences
+        //            .Where(x => x.ID == Transaction.TransactionId)
+        //            .Select(x => new DTHouseholdExpenses
+        //            {
+        //                SubType = x.HE_type,
+        //                Comment = x.Comment
+        //            }).First();
+        //        return;
+        //    }
+        //    if (db.LongTermExpences.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Довгострокові витрати";
+        //        return;
+        //    }
+        //    if (db.OtherExpences.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Витрати";
+        //        return;
+        //    }
+        //    if (db.OtherIncomes.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Інший дохід";
+        //        return;
+        //    }
+        //    if (db.Rents.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = "Оренда житла";
+        //        return;
+        //    }
+        //    if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
+        //    {
+        //        Transaction.Type = ;
+        //        Transaction.WageDetails = db.Wages
+        //            .Where(x => x.ID == Transaction.TransactionId)
+        //            .Select(x => new DTWage
+        //            {
+        //                WorkPlace = x.Workplace,
+        //                WageRate = x.Wage_rate
+        //            }).First();
+        //        return;
+        //    }
+        //    Transaction.Type = "Тип транзакції невідомий";
+        //}
     }
 }

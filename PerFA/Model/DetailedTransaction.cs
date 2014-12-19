@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
+using PerFA.Model.Database;
 using PerFA.Model.TransactionTypes;
 
 namespace PerFA.Model
@@ -21,27 +22,34 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public int UserId;
-        public int TransactionId;
+        //private Dictionary<string, decimal?> usersSumsDictionary;
+        
+        private readonly TransactionUser transactionUser;
 
-        private DateTime? date;
-        private string description;
-        private string userName;
-        private decimal? sum;
-        private string authorName;
-        private Dictionary<string, decimal?> usersSumsDictionary;
-        private string type;
-        private DTHouseholdExpenses householdExpensesDetails;
-        private DTWage wageDetails;
-
+        public DetailedTransaction(TransactionUser transactionUser)
+        {
+            this.transactionUser = transactionUser;
+            if (transactionUser.Transaction.HouseholdExpence != null)
+            {
+                householdExpensesDetails = 
+                    new DTHouseholdExpenses(transactionUser.Transaction.HouseholdExpence);
+                type = "Побутові витрати";
+            }
+            else if (transactionUser.Transaction.Wage != null)
+            {
+                wageDetails = new DTWage(transactionUser.Transaction.Wage);
+                type = "Заробітня плата";
+            }
+        }
+        
         public DateTime? Date
         {
-            get { return date; }
+            get { return transactionUser.Transaction.Date; }
             set
             {
-                if (date != value)
+                if (transactionUser.Transaction.Date != value)
                 {
-                    date = value;
+                    transactionUser.Transaction.Date = value;
                     OnPropertyChanged();
                 }
             }
@@ -49,12 +57,12 @@ namespace PerFA.Model
 
         public string Description
         {
-            get { return description; }
+            get { return transactionUser.Transaction.Description; }
             set
             {
-                if (description != value)
+                if (transactionUser.Transaction.Description != value)
                 {
-                    description = value;
+                    transactionUser.Transaction.Description = value;
                     OnPropertyChanged();
                 }
             }
@@ -62,25 +70,17 @@ namespace PerFA.Model
 
         public string UserName
         {
-            get { return userName; }
-            set
-            {
-                if (userName != value)
-                {
-                    userName = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return transactionUser.User.Name; }
         }
 
         public decimal? Sum
         {
-            get { return sum; }
+            get { return transactionUser.Sum; }
             set
             {
-                if (sum != value)
+                if (transactionUser.Sum != value)
                 {
-                    sum = value;
+                    transactionUser.Sum = value;
                     OnPropertyChanged();
                 }
             }
@@ -88,88 +88,48 @@ namespace PerFA.Model
 
         public string AuthorName
         {
-            get { return authorName; }
-            set
-            {
-                if (authorName != value)
-                {
-                    authorName = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return transactionUser.Transaction.User.Name; }
         }
 
-        public Dictionary<string, decimal?> UsersSumsDictionary
-        {
-            get { return usersSumsDictionary; }
-            set
-            {
-                if (usersSumsDictionary != value)
-                {
-                    usersSumsDictionary = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //public ICollection<TransactionUser> UsersSumsDictionary
+        //{
+        //    get { return transactionUser.Transaction.TransactionUsers; }
+        //    set
+        //    {
+        //        if (transactionUser.Transaction.TransactionUsers != value)
+        //        {
+        //            transactionUser.Transaction.TransactionUsers = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
+        private readonly string type;
         public string Type
         {
             get { return type; }
-            set
-            {
-                if (type != value)
-                {
-                    type = value;
-                    OnPropertyChanged();
-                }
-            }
         }
 
+        private readonly DTHouseholdExpenses householdExpensesDetails;
         public DTHouseholdExpenses HouseholdExpensesDetails
         {
             get { return householdExpensesDetails; }
-            set
-            {
-                if (householdExpensesDetails != value)
-                {
-                    var householdTransactionChanged = 
-                        (householdExpensesDetails != null) != (value != null);
-                    householdExpensesDetails = value;
-                    OnPropertyChanged();
-                    if (householdTransactionChanged)
-                    {
-                        OnPropertyChanged("IsHouseholdExpensesTransaction"); 
-                    }
-                }
-            }
         }
 
+        public bool HasHouseholdExpensesDetails
+        {
+            get { return householdExpensesDetails != null; }
+        }
+
+        private readonly DTWage wageDetails;
         public DTWage WageDetails
         {
             get { return wageDetails; }
-            set
-            {
-                if (wageDetails != value)
-                {
-                    var wageTransactionChanged = (wageDetails != null) != (value != null);
-                    wageDetails = value;
-                    OnPropertyChanged();
-                    if (wageTransactionChanged)
-                    {
-                        OnPropertyChanged("IsWageTransaction");
-                    }
-                }
-            }
         }
 
-        public bool IsHouseholdExpensesTransaction
+        public bool HasWageDetails
         {
-            get { return HouseholdExpensesDetails != null; }
-        }
-
-        public bool IsWageTransaction
-        {
-            get { return WageDetails != null; }
+            get { return wageDetails != null; }
         }
 
     }

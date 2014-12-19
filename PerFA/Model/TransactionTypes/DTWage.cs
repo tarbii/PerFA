@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
+using PerFA.Model.Database;
 
 namespace PerFA.Model.TransactionTypes
 {
@@ -20,17 +21,21 @@ namespace PerFA.Model.TransactionTypes
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string workPlace;
-        private decimal? wageRate;
+        private readonly Wage wage;
+
+        public DTWage(Wage wage)
+        {
+            this.wage = wage;
+        }
 
         public string WorkPlace
         {
-            get { return workPlace; }
+            get { return wage.Workplace; }
             set
             {
-                if (workPlace != value)
+                if (wage.Workplace != value)
                 {
-                    workPlace = value;
+                    wage.Workplace = value;
                     OnPropertyChanged();
                 }
             }
@@ -38,12 +43,12 @@ namespace PerFA.Model.TransactionTypes
 
         public decimal? WageRate
         {
-            get { return wageRate; }
+            get { return wage.Wage_rate; }
             set
             {
-                if (wageRate != value)
+                if (wage.Wage_rate != value)
                 {
-                    wageRate = value;
+                    wage.Wage_rate = value;
                     OnPropertyChanged();
                 }
             }
