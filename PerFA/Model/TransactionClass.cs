@@ -59,12 +59,12 @@ namespace PerFA.Model
                         TransactionId = transactionId,
                     }).First();
 
-                GetTypeofTransaction(db);
+                SetTypeofTransaction(db);
                 Transaction.UsersSumsDictionary = users;
             }
         }
 
-        private void GetTypeofTransaction(DatabaseContext db)
+        private void SetTypeofTransaction(DatabaseContext db)
         {
             if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
             {
@@ -84,7 +84,6 @@ namespace PerFA.Model
             if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
             {
                 Transaction.Type = "Побутові витрати";
-                Transaction.IsHouseholdExpensesTransaction = true;
                 Transaction.HouseholdExpensesDetails = db.HouseholdExpences
                     .Where(x => x.ID == Transaction.TransactionId)
                     .Select(x => new DTHouseholdExpenses
@@ -117,7 +116,6 @@ namespace PerFA.Model
             if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
             {
                 Transaction.Type = "Заробітня плата";
-                Transaction.IsWageTransaction = true;
                 Transaction.WageDetails = db.Wages
                     .Where(x => x.ID == Transaction.TransactionId)
                     .Select(x => new DTWage

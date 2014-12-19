@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using PerFA.Model;
 using PerFA.ViewModel;
 
 namespace PerFA.View

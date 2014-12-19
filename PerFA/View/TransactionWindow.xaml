@@ -29,7 +29,8 @@
         <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
         <StackPanel Margin="0" Grid.Column="1" VerticalAlignment="Top">
             <StackPanel x:Name="StackPanelHE" VerticalAlignment="Top" 
-                        Visibility="{Binding Transaction.Transaction.IsHouseholdExpensesTransaction, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding Transaction.Transaction.IsHouseholdExpensesTransaction, 
+                Converter={StaticResource BooleanToVisibilityConverter}}">
                 <DockPanel>
                     <Label Content="Категорія" HorizontalContentAlignment="Right"/>
                     <TextBox TextWrapping="Wrap" 
