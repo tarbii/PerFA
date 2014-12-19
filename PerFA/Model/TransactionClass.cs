@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
 using PerFA.Model.Database;
+using PerFA.Model.TransactionTypes;
 
 namespace PerFA.Model
 {
@@ -83,6 +84,13 @@ namespace PerFA.Model
             if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
             {
                 Transaction.Type = "Побутові витрати";
+                Transaction.HouseholdExpensesDetails = db.HouseholdExpences
+                    .Where(x => x.ID == Transaction.TransactionId)
+                    .Select(x => new DTHouseholdExpenses
+                    {
+                        SubType = x.HE_type,
+                        Comment = x.Comment
+                    }).First();
                 return;
             }
             if (db.LongTermExpences.Any(x => x.ID == Transaction.TransactionId))

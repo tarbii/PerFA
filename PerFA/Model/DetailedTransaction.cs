@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PerFA.Model.TransactionTypes;
 
 namespace PerFA.Model
 {
@@ -18,7 +19,6 @@ namespace PerFA.Model
         public string AuthorName { get; set; }
         public Dictionary<string, decimal?> UsersSumsDictionary { get; set; }
         public string Type { get; set; }
-        public string SubType { get; set; }
-        public string Comment { get; set; }
+        public DTHouseholdExpenses HouseholdExpensesDetails { get; set; }
     }
 }
