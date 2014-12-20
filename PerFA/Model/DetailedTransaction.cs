@@ -24,7 +24,7 @@ namespace PerFA.Model
 
         //private Dictionary<string, decimal?> usersSumsDictionary;
         
-        private readonly TransactionUser transactionUser;
+        public readonly TransactionUser transactionUser;
 
         public DetailedTransaction(TransactionUser transactionUser)
         {

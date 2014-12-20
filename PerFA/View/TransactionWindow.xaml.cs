@@ -20,8 +20,9 @@ namespace PerFA.View
     /// </summary>
     public partial class TransactionWindow : Window
     {
-        private readonly int? userId;
+        private readonly int userId;
         private readonly int? transactionId;
+        private readonly string typeOfTransaction;
 
         public TransactionWindow(int userId, int transactionId)
         {
@@ -30,23 +31,30 @@ namespace PerFA.View
             InitializeComponent();
         }
 
-        public TransactionWindow(int userId)
+        public TransactionWindow(int userId, string typeOfTransaction)
         {
             this.userId = userId;
+            this.typeOfTransaction = typeOfTransaction;
             InitializeComponent();
         }
 
-        private void Window_DataContextChanged(object sender, 
+        private void Window_DataContextChanged(object sender,
             DependencyPropertyChangedEventArgs e)
         {
+            var vm = e.NewValue as VMTransaction;
+            if (vm == null)
+            {
+                throw new Exception("Wrong DataContext");
+            }
+
             if (transactionId != null)
             {
-                var vm = e.NewValue as VMTransaction;
-                if (vm == null)
-                {
-                    throw new Exception("Wrong DataContext");
-                }
-                vm.LoadTransaction(userId, transactionId); 
+                vm.LoadTransaction(userId, transactionId);
+            }
+
+            else
+            {
+                vm.CreateTransaction(userId, typeOfTransaction);
             }
         }
     }

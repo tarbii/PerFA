@@ -58,7 +58,7 @@ namespace PerFA.View
             {
                 vm.CreateNewTransactionWindowAction = () =>
                 {
-                    var newTransactionWindow = new TransactionWindow(userId);
+                    var newTransactionWindow = new TransactionWindow(userId, );
                     newTransactionWindow.Show();
                 };
             }

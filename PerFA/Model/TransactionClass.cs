@@ -40,7 +40,7 @@ namespace PerFA.Model
             }
         }
 
-        public void LoadTransaction(int? userId, int? transactionId)
+        public void LoadTransaction(int userId, int? transactionId)
         {
             //var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
             //    .Select(x => new { x.User.Name, x.Sum })
@@ -69,10 +69,37 @@ namespace PerFA.Model
 
         }
 
+        public void CreateTransaction(int userId, string typeOfTransaction)
+        {
+            db = new DatabaseContext();
+
+            var tu = db.TransactionUsers.Create();
+            tu.ID_user = userId;
+
+            var t = tu.Transaction = db.Transactions.Create();
+            t.Author_ID = userId;
+
+            db.Transactions.Add(t);
+            db.TransactionUsers.Add(tu);
+
+            switch (typeOfTransaction)
+            {
+                case "Побутові витрати":
+                    var hexp = db.HouseholdExpences.Create();
+                    hexp.Transaction = t;
+                    db.HouseholdExpences.Add(hexp);
+                    break;
+
+            }
+
+            Transaction = new DetailedTransaction(tu);
+        }
+
         public void SaveChanges()
         {
             db.SaveChanges();
         }
+
         //private void SetTypeofTransaction(DatabaseContext db)
         //{
         //    if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
