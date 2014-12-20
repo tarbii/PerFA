@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
+using PerFA.Model.Database;
 using PerFA.ViewModel;
 
 namespace PerFA.View
@@ -20,11 +22,6 @@ namespace PerFA.View
             registrationWindow.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new AllTransactionsWindow(3).Show();
-        }
-
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var vm = e.NewValue as VMLogin;
@@ -43,6 +40,10 @@ namespace PerFA.View
                     allTransactionWindow.Closed += (o, args) => Show();
                     allTransactionWindow.Show();
                 };
+            }
+            using (var db = new DatabaseContext())
+            {
+                var transactionCount = db.TransactionUsers.Count();
             }
         }
     }

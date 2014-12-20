@@ -3,30 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel"
         x:Class="PerFA.View.AllTransactionsWindow"
-        Title="Transactions" Height="380" Width="729" DataContextChanged="Window_DataContextChanged">
+        Title="Transactions" Height="380" Width="729" DataContextChanged="Window_DataContextChanged" SizeToContent="WidthAndHeight" MaxHeight="702">
     <Window.DataContext>
         <ViewModel:VMAllTransactions/>
     </Window.DataContext>
-    <Grid>
-        <Grid HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="711">
-            <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ItemsSource="{Binding AllTransactionsClass.Transactions}" 
-                      SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
-                      IsReadOnly ="True">
-                <DataGrid.InputBindings>
-                    <MouseBinding
-                        MouseAction="LeftDoubleClick"
-                        Command ="{Binding ViewTransactionCommand}"/>
-                </DataGrid.InputBindings>
-            </DataGrid>
-        </Grid>
-        <Button Content="View transaction" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Width="113" Margin="10,248,0,0" Command="{Binding ViewTransactionCommand}"/>
-        <ComboBox VerticalAlignment="Center" Width="120" HorizontalAlignment="Right"
-                  SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}" 
-                  ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction}"/>
-        <Button Content="Create transaction" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding CreateTransactionCommand}"/>
-        <Button Content="Delete" Command="{Binding DeleteTransactionCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-
-    </Grid>
+    <DockPanel Margin="5">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" DockPanel.Dock="Right" Width="150">
+            <Button Content="View transaction" VerticalAlignment="Bottom" 
+        		Command="{Binding ViewTransactionCommand}" VerticalContentAlignment="Bottom" Margin="5"/>
+            <Separator Margin="5" Height="8"/>
+            <ComboBox VerticalAlignment="Bottom"
+        		SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}" 
+        		ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction}" Margin="5" IsReadOnly="True"/>
+            <Button Content="Create transaction" VerticalAlignment="Bottom" Command="{Binding CreateTransactionCommand}" Margin="5"/>
+            <Separator Margin="5" Height="8"/>
+            <Button Content="Delete" Command="{Binding DeleteTransactionCommand}" VerticalAlignment="Bottom" Margin="5"/>
+        </StackPanel>
+        <DataGrid x:Name="TransactionDataGrid" 
+			ItemsSource="{Binding AllTransactionsClass.Transactions}" 
+			SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
+			IsReadOnly ="True" HorizontalAlignment="Center">
+            <DataGrid.InputBindings>
+                <MouseBinding
+            		MouseAction="LeftDoubleClick"
+            		Command ="{Binding ViewTransactionCommand}"/>
+            </DataGrid.InputBindings>
+        </DataGrid>
+    </DockPanel>
 </Window>

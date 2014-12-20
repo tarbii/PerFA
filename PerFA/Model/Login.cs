@@ -23,7 +23,7 @@ namespace PerFA.Model
 
         private string loginData = "alex";
         private string password = "alex";
-        private string loginMessage = "Enter login & password";
+        private string loginMessage = "Введіть логін та пароль для авторизації.";
 
         public string LoginMessage
         {
@@ -85,7 +85,7 @@ namespace PerFA.Model
                 else
                 {
                     LoginMessage = db.Users.Select(x => x.Login).Contains(loginData)
-                        ? "Wrong password" : "Wrong login";
+                        ? "Невірний пароль" : "Невірний логін";
                 }
             }
         }
