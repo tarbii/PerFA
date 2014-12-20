@@ -56,16 +56,11 @@ namespace PerFA.View
             {
                 vm.CreateTransaction(userId, typeOfTransaction);
             }
-
-            if (vm.CloseWindowAction == null)
-            {
-                vm.CloseWindowAction = Close;
-            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            DialogResult = true;
         }
     }
 }

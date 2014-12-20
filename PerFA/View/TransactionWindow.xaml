@@ -3,65 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="PerFA.View.TransactionWindow"
         Title="{Binding Transaction.Transaction.Type}" 
-    Height="300" Width="672" 
-    DataContextChanged="Window_DataContextChanged">
+    DataContextChanged="Window_DataContextChanged" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="400" SizeToContent="Height">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <ViewModel:VMTransaction/>
     </Window.DataContext>
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Дата" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Content="Опис" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,78,0,0"/>
-        <Label Content="Сума" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-3,52,0,0"/>
-        <Label Content="Ім'я" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,109,0,0"/>
-        <Label Content="Автор" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,26,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Date}" VerticalAlignment="Top" Width="120" Margin="60,3,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}" VerticalAlignment="Top" Width="120" Margin="60,87,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}" VerticalAlignment="Top" Width="120" Margin="60,59,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.AuthorName, Mode=OneTime}" IsReadOnly="True" VerticalAlignment="Top" Width="120" Margin="60,31,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Transaction.Transaction.UserName, Mode=OneTime}" IsReadOnly="True" VerticalAlignment="Top" Width="120" Margin="60,115,0,0"/>
-        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
-        <StackPanel Margin="0" Grid.Column="1" VerticalAlignment="Top">
-            <StackPanel x:Name="StackPanelHE" VerticalAlignment="Top" 
-                        Visibility="{Binding Transaction.Transaction.HasHouseholdExpensesDetails, 
-                Converter={StaticResource BooleanToVisibilityConverter}}">
-                <DockPanel>
-                    <Label Content="Категорія" HorizontalContentAlignment="Right"/>
-                    <TextBox TextWrapping="Wrap" 
-                             Text="{Binding Transaction.Transaction.HouseholdExpensesDetails.SubType}" 
-                             Height="23"/>
+    <StackPanel VerticalAlignment="Top">
+        <DockPanel Margin="5">
+            <Label Content="Дата" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Date}"/>
+        </DockPanel>
+        <DockPanel Margin="5">
+            <Label Content="Опис" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Description}"/>
+        </DockPanel>
+        <DockPanel Margin="5">
+            <Label Content="Сума" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.Sum}"/>
+        </DockPanel>
+        <DockPanel Margin="5">
+            <Label Content="Автор" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.UserName, Mode=OneTime}"/>
+        </DockPanel>
+        <StackPanel>
+            <StackPanel x:Name="StackPanelHE" 
+        		Visibility="{Binding Transaction.Transaction.HasHouseholdExpensesDetails, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <DockPanel Margin="5">
+                    <Label Content="Категорія" DockPanel.Dock="Top"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.HouseholdExpensesDetails.SubType}"/>
                 </DockPanel>
-                <DockPanel>
-                    <Label Content="Коментар" HorizontalContentAlignment="Right"/>
-                    <TextBox TextWrapping="Wrap" 
-                             Text="{Binding Transaction.Transaction.HouseholdExpensesDetails.Comment}" 
-                             Height="23"/>
+                <DockPanel Margin="5">
+                    <Label Content="Коментар" DockPanel.Dock="Top"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.HouseholdExpensesDetails.Comment}"/>
                 </DockPanel>
             </StackPanel>
-            <StackPanel x:Name="StackPanelWages" VerticalAlignment="Top" 
-                        Visibility="{Binding Transaction.Transaction.HasWageDetails, 
-                Converter={StaticResource BooleanToVisibilityConverter}}">
-                <DockPanel>
-                    <Label Content="Місце роботи" HorizontalContentAlignment="Right"/>
-                    <TextBox TextWrapping="Wrap" 
-                             Text="{Binding Transaction.Transaction.WageDetails.WorkPlace}" 
-                             Height="23"/>
+            <StackPanel x:Name="StackPanelWages" 
+        		Visibility="{Binding Transaction.Transaction.HasWageDetails, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <DockPanel Margin="5">
+                    <Label Content="Місце роботи" DockPanel.Dock="Top"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.WageDetails.WorkPlace}"/>
                 </DockPanel>
-                <DockPanel>
-                    <Label Content="Ставка" HorizontalContentAlignment="Right"/>
-                    <TextBox TextWrapping="Wrap" 
-                             Text="{Binding Transaction.Transaction.WageDetails.WageRate}" 
-                             Height="23"/>
+                <DockPanel Margin="5">
+                    <Label Content="Ставка" DockPanel.Dock="Top"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Transaction.WageDetails.WageRate}"/>
                 </DockPanel>
             </StackPanel>
         </StackPanel>
-        <Button Content="Save Changes" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Command="{Binding SaveChangesCommand}"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-    </Grid>
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
+        <DockPanel LastChildFill="False" HorizontalAlignment="Center">
+            <Button Content="Cancel" HorizontalAlignment="Right" Margin="5" IsCancel="True"/>
+            <Button Content="Save Changes" HorizontalAlignment="Right" Command="{Binding SaveChangesCommand}" Margin="5" IsDefault="True" Click="Button_Click"/>
+        </DockPanel>
+    </StackPanel>
 </Window>

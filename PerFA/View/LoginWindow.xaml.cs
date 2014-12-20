@@ -36,9 +36,9 @@ namespace PerFA.View
                 vm.CreateAllTransactionsWindowAction = x =>
                 {
                     Hide();
-                    var allTransactionWindow = new AllTransactionsWindow(x);
-                    allTransactionWindow.Closed += (o, args) => Show();
-                    allTransactionWindow.Show();
+                    new AllTransactionsWindow(x).ShowDialog();
+                    Show();
+                    Activate();
                 };
             }
             using (var db = new DatabaseContext())

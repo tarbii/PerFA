@@ -10,7 +10,6 @@ namespace PerFA.ViewModel
 {
     class VMTransaction
     {
-        public Action CloseWindowAction { get; set; }
         public TransactionClass Transaction { get; set; }
         public SaveChangesCommand SaveChangesCommand { get; set; }
 
@@ -21,10 +20,7 @@ namespace PerFA.ViewModel
             SaveChangesCommand = new SaveChangesCommand(Transaction);
         }
 
-        void Transaction_ChangesSaved()
-        {
-            CloseWindowAction();
-        }
+        void Transaction_ChangesSaved() { }
 
         public void LoadTransaction(int userId, int? transactionId)
         {
