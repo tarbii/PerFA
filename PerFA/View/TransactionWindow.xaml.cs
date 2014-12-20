@@ -56,6 +56,11 @@ namespace PerFA.View
             {
                 vm.CreateTransaction(userId, typeOfTransaction);
             }
+
+            if (vm.CloseWindowAction == null)
+            {
+                vm.CloseWindowAction = Close;
+            }
         }
     }
 }

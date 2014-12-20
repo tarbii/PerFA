@@ -117,11 +117,11 @@ namespace PerFA.Model
             }
         }
 
-        public event Action TransactionCreationucceed;
-        private void OnTransactionCreationSucceed()
+        public event Action<string> TransactionCreationucceed;
+        private void OnTransactionCreationSucceed(string typeOfTransaction)
         {
             var handler = TransactionCreationucceed;
-            if (handler != null) handler();
+            if (handler != null) handler(typeOfTransaction);
         }
 
         public event Action<string> TransactionCreationFailed;
@@ -135,11 +135,23 @@ namespace PerFA.Model
         {
             if (SelectedNameOfTransaction != null)
             {
-                OnTransactionCreationSucceed();
+                OnTransactionCreationSucceed(SelectedNameOfTransaction);
             }
             else
             {
                 OnTransactionCreationFailed("Виберіть тип транзакції для створення");
+            }
+        }
+
+        public void DeleteTransaction()
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
+                    x.ID_transaction == SelectedTransaction.TransactionId &&
+                    x.ID_user == SelectedTransaction.UserId));
+                db.SaveChanges();
+                LoadTransactions(SelectedTransaction.UserId);
             }
         }
 

@@ -22,10 +22,11 @@
         </Grid>
         <Button Content="View transaction" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Width="113" Margin="10,248,0,0" Command="{Binding ViewTransactionCommand}"/>
-        <ComboBox VerticalAlignment="Center" Width="120" HorizontalAlignment="Right" 
-                  ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction, Mode=OneWay}"
-                  SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}"/>
+        <ComboBox VerticalAlignment="Center" Width="120" HorizontalAlignment="Right"
+                  SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}" 
+                  ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction}"/>
         <Button Content="Create transaction" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding CreateTransactionCommand}"/>
+        <Button Content="Delete" Command="{Binding DeleteTransactionCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"/>
 
     </Grid>
 </Window>

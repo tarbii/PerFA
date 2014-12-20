@@ -24,8 +24,13 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public TransactionClass()
+        {
+            db = new DatabaseContext();
+        }
+
         private DetailedTransaction transaction;
-        private DatabaseContext db;
+        private readonly DatabaseContext db;
 
         public DetailedTransaction Transaction
         {
@@ -62,7 +67,6 @@ namespace PerFA.Model
             //SetTypeofTransaction(db);
             //Transaction.UsersSumsDictionary = users;
 
-            db = new DatabaseContext();
             var transactionUser = db.TransactionUsers
                 .First(x => x.ID_user == userId && x.ID_transaction == transactionId);
             Transaction = new DetailedTransaction(transactionUser);
@@ -71,8 +75,6 @@ namespace PerFA.Model
 
         public void CreateTransaction(int userId, string typeOfTransaction)
         {
-            db = new DatabaseContext();
-
             var tu = db.TransactionUsers.Create();
             tu.ID_user = userId;
 
@@ -90,14 +92,29 @@ namespace PerFA.Model
                     db.HouseholdExpences.Add(hexp);
                     break;
 
+                case "Заробітня плата":
+                    var wage = db.Wages.Create();
+                    wage.Transaction = t;
+                    db.Wages.Add(wage);
+                    break;
+
             }
 
             Transaction = new DetailedTransaction(tu);
         }
 
+        public event Action ChangesSaved;
+
+        protected virtual void OnChangesSaved()
+        {
+            var handler = ChangesSaved;
+            if (handler != null) handler();
+        }
+
         public void SaveChanges()
         {
             db.SaveChanges();
+            OnChangesSaved();
         }
 
         //private void SetTypeofTransaction(DatabaseContext db)

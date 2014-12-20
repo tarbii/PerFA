@@ -10,13 +10,20 @@ namespace PerFA.ViewModel
 {
     class VMTransaction
     {
+        public Action CloseWindowAction { get; set; }
         public TransactionClass Transaction { get; set; }
         public SaveChangesCommand SaveChangesCommand { get; set; }
 
         public VMTransaction()
         {
             Transaction = new TransactionClass();
+            Transaction.ChangesSaved += Transaction_ChangesSaved;
             SaveChangesCommand = new SaveChangesCommand(Transaction);
+        }
+
+        void Transaction_ChangesSaved()
+        {
+            CloseWindowAction();
         }
 
         public void LoadTransaction(int userId, int? transactionId)

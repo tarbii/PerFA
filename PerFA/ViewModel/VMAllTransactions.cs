@@ -10,22 +10,24 @@ namespace PerFA.ViewModel
     class VMAllTransactions
     {
         public Action<int, int> CreateTransactionWindowAction { get; set; }
-        public Action CreateNewTransactionWindowAction { get; set; }
+        public Action<string> CreateNewTransactionWindowAction { get; set; }
         public Action<string> ShowMessageBoxAction { get; set; }
         public ViewTransactionCommand ViewTransactionCommand { get; set; }
         public CreateTransactionCommand CreateTransactionCommand { get; set; }
+        public DeleteTransactionCommand DeleteTransactionCommand { get; set; }
         public AllTransactionsClass AllTransactionsClass { get; set; }
 
         public VMAllTransactions()
         {
             AllTransactionsClass = new AllTransactionsClass();
-            AllTransactionsClass.TransactionLoadSucceed += 
+            AllTransactionsClass.TransactionLoadSucceed +=
                 AllTransactionsClass_TransactionLoadSucceed;
             AllTransactionsClass.TransactionLoadFailed += AllTransactionsClass_TransactionLoadFailed;
             AllTransactionsClass.TransactionCreationucceed += AllTransactionsClass_TransactionCreationucceed;
             AllTransactionsClass.TransactionCreationFailed += AllTransactionsClass_TransactionCreationFailed;
             ViewTransactionCommand = new ViewTransactionCommand(AllTransactionsClass);
             CreateTransactionCommand = new CreateTransactionCommand(AllTransactionsClass);
+            DeleteTransactionCommand = new DeleteTransactionCommand(AllTransactionsClass);
         }
 
         void AllTransactionsClass_TransactionCreationFailed(string message)
@@ -33,9 +35,9 @@ namespace PerFA.ViewModel
             ShowMessageBoxAction(message);
         }
 
-        void AllTransactionsClass_TransactionCreationucceed()
+        void AllTransactionsClass_TransactionCreationucceed(string typeOfTransaction)
         {
-            CreateNewTransactionWindowAction();
+            CreateNewTransactionWindowAction(typeOfTransaction);
         }
 
         void AllTransactionsClass_TransactionLoadFailed(string message)

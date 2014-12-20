@@ -45,6 +45,7 @@ namespace PerFA.View
                 vm.CreateTransactionWindowAction = (x, y) =>
                 {
                     var transactionWindow = new TransactionWindow(x, y);
+                    transactionWindow.Closed += (o, args) => vm.LoadTransactions(userId);
                     transactionWindow.Show();
                 };
             }
@@ -56,9 +57,10 @@ namespace PerFA.View
 
             if (vm.CreateNewTransactionWindowAction == null)
             {
-                vm.CreateNewTransactionWindowAction = () =>
+                vm.CreateNewTransactionWindowAction = (s) =>
                 {
-                    var newTransactionWindow = new TransactionWindow(userId, );
+                    var newTransactionWindow = new TransactionWindow(userId, s);
+                    newTransactionWindow.Closed += (o, args) => vm.LoadTransactions(userId);
                     newTransactionWindow.Show();
                 };
             }

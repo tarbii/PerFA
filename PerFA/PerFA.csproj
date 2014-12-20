@@ -73,6 +73,7 @@
     <Compile Include="Model\TransactionTypes\DTWage.cs" />
     <Compile Include="Model\TypesOfTransaction.cs" />
     <Compile Include="ViewModel\CreateTransactionCommand.cs" />
+    <Compile Include="ViewModel\DeleteTransactionCommand.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />
