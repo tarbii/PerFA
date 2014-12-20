@@ -62,5 +62,6 @@
             </StackPanel>
         </StackPanel>
         <Button Content="Save Changes" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Command="{Binding SaveChangesCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

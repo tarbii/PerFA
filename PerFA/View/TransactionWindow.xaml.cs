@@ -62,5 +62,10 @@ namespace PerFA.View
                 vm.CloseWindowAction = Close;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
