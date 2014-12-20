@@ -71,6 +71,8 @@
     <Compile Include="Model\AllTransactionsClass.cs" />
     <Compile Include="Model\TransactionTypes\DTHouseholdExpenses.cs" />
     <Compile Include="Model\TransactionTypes\DTWage.cs" />
+    <Compile Include="Model\TypesOfTransaction.cs" />
+    <Compile Include="ViewModel\CreateTransactionCommand.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
     <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="View\AllTransactionsWindow.xaml.cs">
       <DependentUpon>AllTransactionsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SaveChangesCommand.cs" />
+    <Compile Include="ViewModel\SaveChangesCommand.cs" />
     <Compile Include="View\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>

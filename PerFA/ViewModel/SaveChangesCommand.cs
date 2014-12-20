@@ -10,7 +10,7 @@ namespace PerFA.View
 {
     class SaveChangesCommand : ICommand
     {
-        private TransactionClass transaction;
+        private readonly TransactionClass transaction;
         
         public SaveChangesCommand(TransactionClass transaction)
         {

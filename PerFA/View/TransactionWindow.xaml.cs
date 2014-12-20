@@ -30,7 +30,8 @@ namespace PerFA.View
             InitializeComponent();
         }
 
-        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Window_DataContextChanged(object sender, 
+            DependencyPropertyChangedEventArgs e)
         {
             var vm = e.NewValue as VMTransaction;
             if (vm == null)

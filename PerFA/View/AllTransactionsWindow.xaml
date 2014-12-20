@@ -10,8 +10,8 @@
     <Grid>
         <Grid HorizontalAlignment="Left" Height="189" VerticalAlignment="Top" Width="711">
             <DataGrid x:Name="TransactionDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      ItemsSource="{Binding TransactionsClass.Transactions}" 
-                      SelectedItem="{Binding TransactionsClass.SelectedTransaction}"
+                      ItemsSource="{Binding AllTransactionsClass.Transactions}" 
+                      SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
                       IsReadOnly ="True">
                 <DataGrid.InputBindings>
                     <MouseBinding
@@ -22,6 +22,10 @@
         </Grid>
         <Button Content="View transaction" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Width="113" Margin="10,248,0,0" Command="{Binding ViewTransactionCommand}"/>
+        <ComboBox VerticalAlignment="Center" Width="120" HorizontalAlignment="Right" 
+                  ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction, Mode=OneWay}"
+                  SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}"/>
+        <Button Content="Create transaction" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding CreateTransactionCommand}"/>
 
     </Grid>
 </Window>

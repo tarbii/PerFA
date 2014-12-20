@@ -22,9 +22,12 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ReadOnlyObservableCollection<TransactionPresentation> transactions;
-        private TransactionPresentation selectedTransaction;
+        public AllTransactionsClass()
+        {
+            NamesOfTransaction = new NamesOfTransaction().NamesList;
+        }
 
+        private TransactionPresentation selectedTransaction;
         public TransactionPresentation SelectedTransaction
         {
             get { return selectedTransaction; }
@@ -38,6 +41,7 @@ namespace PerFA.Model
             }
         }
 
+        private ReadOnlyObservableCollection<TransactionPresentation> transactions;
         public ReadOnlyObservableCollection<TransactionPresentation> Transactions
         {
             get { return transactions; }
@@ -71,7 +75,6 @@ namespace PerFA.Model
         }
 
         public event Action<int, int> TransactionLoadSucceed;
-
         private void OnTransactionLoadSucceed(int userId, int transactionId)
         {
             var handler = TransactionLoadSucceed;
@@ -79,7 +82,6 @@ namespace PerFA.Model
         }
 
         public event Action<string> TransactionLoadFailed;
-
         private void OnTransactionLoadFailed(string message)
         {
             var handler = TransactionLoadFailed;
@@ -99,6 +101,25 @@ namespace PerFA.Model
             }
         }
 
+        public List<string> NamesOfTransaction { get; private set; }
+
+        private string selectedNameOfTransaction;
+        public string SelectedNameOfTransaction
+        {
+            get { return selectedNameOfTransaction; }
+            private set
+            {
+                if (selectedNameOfTransaction != value)
+                {
+                    selectedNameOfTransaction = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public void CreateTransaction()
+        {
+            
+        }
 
     }
 }

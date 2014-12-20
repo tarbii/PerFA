@@ -10,19 +10,23 @@ namespace PerFA.ViewModel
     class VMAllTransactions
     {
         public Action<int, int> CreateTransactionWindowAction { get; set; }
+
         public Action<string> ShowMessageBoxAction { get; set; }
 
         public ViewTransactionCommand ViewTransactionCommand { get; set; }
 
-        public AllTransactionsClass TransactionsClass { get; set; }
+        public CreateTransactionCommand CreateTransactionCommand { get; set; }
+
+        public AllTransactionsClass AllTransactionsClass { get; set; }
 
         public VMAllTransactions()
         {
-            TransactionsClass = new AllTransactionsClass();
-            TransactionsClass.TransactionLoadSucceed += 
+            AllTransactionsClass = new AllTransactionsClass();
+            AllTransactionsClass.TransactionLoadSucceed += 
                 TransactionsClass_TransactionLoadSucceed;
-            TransactionsClass.TransactionLoadFailed += TransactionsClass_TransactionLoadFailed;
-            ViewTransactionCommand = new ViewTransactionCommand(TransactionsClass);
+            AllTransactionsClass.TransactionLoadFailed += TransactionsClass_TransactionLoadFailed;
+            ViewTransactionCommand = new ViewTransactionCommand(AllTransactionsClass);
+            CreateTransactionCommand = new CreateTransactionCommand(AllTransactionsClass);
         }
 
         void TransactionsClass_TransactionLoadFailed(string message)
@@ -37,7 +41,7 @@ namespace PerFA.ViewModel
 
         public void LoadTransactions(int userId)
         {
-            TransactionsClass.LoadTransactions(userId);
+            AllTransactionsClass.LoadTransactions(userId);
         }
     }
 }
