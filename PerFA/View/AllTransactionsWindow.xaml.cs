@@ -53,6 +53,15 @@ namespace PerFA.View
             {
                 vm.ShowMessageBoxAction = s => MessageBox.Show(s);
             }
+
+            if (vm.CreateNewTransactionWindowAction == null)
+            {
+                vm.CreateNewTransactionWindowAction = () =>
+                {
+                    var newTransactionWindow = new TransactionWindow(userId);
+                    newTransactionWindow.Show();
+                };
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace PerFA.Model
             }
         }
 
-        public void LoadTransaction(int userId, int transactionId)
+        public void LoadTransaction(int? userId, int? transactionId)
         {
             //var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
             //    .Select(x => new { x.User.Name, x.Sum })

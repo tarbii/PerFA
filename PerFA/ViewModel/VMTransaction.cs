@@ -19,7 +19,7 @@ namespace PerFA.ViewModel
             SaveChangesCommand = new SaveChangesCommand(Transaction);
         }
 
-        public void LoadTransaction(int userId, int transactionId)
+        public void LoadTransaction(int? userId, int? transactionId)
         {
             Transaction.LoadTransaction(userId, transactionId);
         }

@@ -24,7 +24,7 @@ namespace PerFA.ViewModel
 
         public void Execute(object parameter)
         {
-            MessageBox.Show(allTransactionsClass.SelectedNameOfTransaction);
+            allTransactionsClass.TryCreateTransaction();
         }
 
         public event EventHandler CanExecuteChanged;

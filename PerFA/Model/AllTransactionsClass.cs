@@ -116,9 +116,31 @@ namespace PerFA.Model
                 }
             }
         }
-        public void CreateTransaction()
+
+        public event Action TransactionCreationucceed;
+        private void OnTransactionCreationSucceed()
         {
-            
+            var handler = TransactionCreationucceed;
+            if (handler != null) handler();
+        }
+
+        public event Action<string> TransactionCreationFailed;
+        private void OnTransactionCreationFailed(string message)
+        {
+            var handler = TransactionCreationFailed;
+            if (handler != null) handler(message);
+        }
+
+        public void TryCreateTransaction()
+        {
+            if (SelectedNameOfTransaction != null)
+            {
+                OnTransactionCreationSucceed();
+            }
+            else
+            {
+                OnTransactionCreationFailed("Виберіть тип транзакції для створення");
+            }
         }
 
     }
