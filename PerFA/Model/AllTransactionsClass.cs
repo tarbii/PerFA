@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -22,10 +23,15 @@ namespace PerFA.Model
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private int? userId;
         public AllTransactionsClass()
         {
             NamesOfTransaction = new NamesOfTransaction().NamesList;
+            TypeFilter.Changed += Update;
         }
+
+        private readonly Filters.TypeFilter typeFilter = new Filters.TypeFilter(true);
+        public Filters.TypeFilter TypeFilter { get { return typeFilter; } }
 
         private TransactionPresentation selectedTransaction;
         public TransactionPresentation SelectedTransaction
@@ -55,13 +61,71 @@ namespace PerFA.Model
             }
         }
 
-        public void LoadTransactions(int userId)
+        private decimal income;
+        public decimal Income
         {
+            get { return income; }
+            private set
+            {
+                if (income != value)
+                {
+                    income = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private decimal expences;
+        public decimal Expences
+        {
+            get { return expences; }
+            private set
+            {
+                if (expences != value)
+                {
+                    expences = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private decimal balance;
+        public decimal Balance
+        {
+            get { return balance; }
+            private set
+            {
+                if (balance != value)
+                {
+                    balance = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public void Initialize(int uId)
+        {
+            userId = uId;
+            LoadTransactions();
+        }
+
+        private void LoadTransactions()
+        {
+            if (userId == null)
+            {
+                throw new Exception("Cannot load transatcions: user is not set");
+            }
+
+            var uId = userId.Value;
+
+            Debug.WriteLine("Loading transactions for {0}", uId);
             using (var db = new DatabaseContext())
             {
                 Transactions = new ReadOnlyObservableCollection<TransactionPresentation>(
                     new ObservableCollection<TransactionPresentation>(db.TransactionUsers
-                        .Where(x => x.ID_user == userId)
+                        .Where(x => (x.ID_user == uId) &&
+                            ((TypeFilter.WageChecked && x.Transaction.Wage != null)
+                            || (TypeFilter.HouseholdExpensesChecked && x.Transaction.HouseholdExpence != null)))
                         .Select(x => new TransactionPresentation
                         {
                             Description = x.Transaction.Description,
@@ -71,6 +135,10 @@ namespace PerFA.Model
                             UserId = x.ID_user,
                             TransactionId = x.ID_transaction
                         })));
+                
+                Income = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s > 0).Sum();
+                Expences = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s < 0).Sum();
+                Balance = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Sum();
             }
         }
 
@@ -107,7 +175,7 @@ namespace PerFA.Model
         public string SelectedNameOfTransaction
         {
             get { return selectedNameOfTransaction; }
-            private set
+            set
             {
                 if (selectedNameOfTransaction != value)
                 {
@@ -151,9 +219,14 @@ namespace PerFA.Model
                     x.ID_transaction == SelectedTransaction.TransactionId &&
                     x.ID_user == SelectedTransaction.UserId));
                 db.SaveChanges();
-                LoadTransactions(SelectedTransaction.UserId);
             }
+            LoadTransactions();
         }
 
+
+        public void Update()
+        {
+            LoadTransactions();
+        }
     }
 }

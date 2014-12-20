@@ -3,31 +3,81 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel"
         x:Class="PerFA.View.AllTransactionsWindow"
-        Title="Transactions" Height="380" Width="729" DataContextChanged="Window_DataContextChanged" SizeToContent="WidthAndHeight" MaxHeight="702" WindowStartupLocation="CenterScreen">
+        Title="Transactions" Height="592" Width="731" DataContextChanged="Window_DataContextChanged" MaxHeight="702" WindowStartupLocation="CenterScreen" Icon="/PerFA;component/Abacus.ico">
     <Window.DataContext>
         <ViewModel:VMAllTransactions/>
     </Window.DataContext>
     <DockPanel Margin="5">
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" DockPanel.Dock="Right" Width="170">
-            <Button Content="View transaction" VerticalAlignment="Bottom" 
-        		Command="{Binding ViewTransactionCommand}" VerticalContentAlignment="Bottom" Margin="5"/>
-            <Separator Margin="5" Height="8"/>
-            <ComboBox VerticalAlignment="Bottom"
-        		ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction}" 
-                SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}" 
-        		Margin="5" IsReadOnly="True"/>
-            <Button Content="Create transaction" VerticalAlignment="Bottom" Command="{Binding CreateTransactionCommand}" Margin="5"/>
-            <Separator Margin="5" Height="8"/>
-            <Button Content="Delete" Command="{Binding DeleteTransactionCommand}" VerticalAlignment="Bottom" Margin="5"/>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="200">
+                <Button Content="View transaction" VerticalAlignment="Bottom" 
+        			Command="{Binding ViewTransactionCommand}" VerticalContentAlignment="Bottom" Margin="5"/>
+                <Separator Margin="5" Height="8"/>
+                <ComboBox VerticalAlignment="Bottom"
+        			ItemsSource="{Binding AllTransactionsClass.NamesOfTransaction}" 
+        			SelectedItem="{Binding AllTransactionsClass.SelectedNameOfTransaction}" 
+        			Margin="5" IsReadOnly="True"/>
+                <Button Content="Create transaction" VerticalAlignment="Bottom" Command="{Binding CreateTransactionCommand}" Margin="5"/>
+                <Separator Margin="5" Height="8"/>
+                <Button Content="Delete" Command="{Binding DeleteTransactionCommand}" VerticalAlignment="Bottom" Margin="5"/>
+                <Separator Margin="5" Height="8"/>
+                <Expander Header="Filter by date" BorderBrush="#FFB8B8B8" Padding="5,6,5,5" Margin="5">
+                    <StackPanel Margin="0">
+                        <Label Content="From:"/>
+                        <DatePicker />
+                        <Label Content="To:"/>
+                        <DatePicker />
+                        <Button Content="Reset" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="Filter by type" BorderBrush="#FFB8B8B8" Padding="5,6,5,5" Margin="5">
+                    <StackPanel Margin="0">
+                        <CheckBox Content="Check all / none" IsChecked="{Binding AllTransactionsClass.TypeFilter.AllChecked}"/>
+                        <CheckBox Content="Wage" IsChecked="{Binding AllTransactionsClass.TypeFilter.WageChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="HouseholdExpenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.HouseholdExpensesChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                    </StackPanel>
+                </Expander>
+                <Expander Header="Search" BorderBrush="#FFB8B8B8" Padding="5,6,5,5" Margin="5">
+                    <StackPanel Margin="0">
+                        <Label Content="Enter search term:"/>
+                        <TextBox/>
+                        <Label Content="Search in:"/>
+                        <CheckBox Content="Check all / none" IsChecked="{Binding AllTransactionsClass.AllChecked}"/>
+                        <CheckBox Content="Description" IsChecked="True"/>
+                        <CheckBox Content="Wage workplace" IsChecked="True"/>
+                        <CheckBox Content="Household exp. type" IsChecked="True"/>
+                        <CheckBox Content="Household exp. category" IsChecked="True"/>
+                        <CheckBox Content="Household exp. comment" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+        <DockPanel DockPanel.Dock="Top">
+            <Label Content="Income:" VerticalAlignment="Top"/>
+            <Label Content="{Binding AllTransactionsClass.Income}"/>
+            <Label Content="Expences:"/>
+            <Label Content="{Binding AllTransactionsClass.Expences}"/>
+            <Label Content="Balance:"/>
+            <Label Content="{Binding AllTransactionsClass.Balance}"/>
+        </DockPanel>
         <DataGrid x:Name="TransactionDataGrid" 
-			ItemsSource="{Binding AllTransactionsClass.Transactions}" 
-			SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
-			IsReadOnly ="True" HorizontalAlignment="Center">
+    		ItemsSource="{Binding AllTransactionsClass.Transactions}" 
+    		SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
+    		IsReadOnly ="True" Margin="5">
             <DataGrid.InputBindings>
                 <MouseBinding
-            		MouseAction="LeftDoubleClick"
-            		Command ="{Binding ViewTransactionCommand}"/>
+    				MouseAction="LeftDoubleClick"
+    				Command ="{Binding ViewTransactionCommand}"/>
             </DataGrid.InputBindings>
         </DataGrid>
     </DockPanel>

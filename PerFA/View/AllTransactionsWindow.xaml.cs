@@ -38,14 +38,14 @@ namespace PerFA.View
                 throw new Exception("Wrong DataContext");
             }
 
-            vm.LoadTransactions(userId);
+            vm.Initialize(userId);
 
             if (vm.CreateTransactionWindowAction == null)
             {
                 vm.CreateTransactionWindowAction = (x, y) =>
                 {
                     new TransactionWindow(x, y).ShowDialog();
-                    vm.LoadTransactions(userId);
+                    vm.Update();
                 };
             }
 
@@ -59,7 +59,7 @@ namespace PerFA.View
                 vm.CreateNewTransactionWindowAction = (s) =>
                 {
                     new TransactionWindow(userId, s).ShowDialog();
-                    vm.LoadTransactions(userId);
+                    vm.Update();
                 };
             }
         }

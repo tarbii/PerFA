@@ -18,8 +18,7 @@ namespace PerFA.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var registrationWindow = new RegistrationWindow();
-            registrationWindow.Show();
+            new RegistrationWindow().ShowDialog();
         }
 
         private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -39,6 +38,9 @@ namespace PerFA.View
                     new AllTransactionsWindow(x).ShowDialog();
                     Show();
                     Activate();
+                    Topmost = true; 
+                    Topmost = false;
+                    Focus();        
                 };
             }
             using (var db = new DatabaseContext())

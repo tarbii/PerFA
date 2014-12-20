@@ -50,9 +50,14 @@ namespace PerFA.ViewModel
             CreateTransactionWindowAction(userId, transactionId);
         }
 
-        public void LoadTransactions(int userId)
+        public void Initialize(int userId)
         {
-            AllTransactionsClass.LoadTransactions(userId);
+            AllTransactionsClass.Initialize(userId);
+        }
+
+        public void Update()
+        {
+            AllTransactionsClass.Update();
         }
     }
 }

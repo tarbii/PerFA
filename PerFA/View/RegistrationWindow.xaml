@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Model="clr-namespace:PerFA.Model" xmlns:ViewModel="clr-namespace:PerFA.ViewModel" x:Class="PerFA.View.RegistrationWindow"
-        Title="Registration" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Title="Registration" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Icon="/PerFA;component/Abacus.ico">
     <Window.DataContext>
         <ViewModel:VMRegistration/>
     </Window.DataContext>
@@ -27,6 +27,9 @@
             <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" 
         		Text="{Binding Registration.Password, Mode=Default}"/>
         </DockPanel>
-        <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Command="{Binding RegistrateCommand}" Margin="5"/>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+            <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Top" Width="76" Command="{Binding RegistrateCommand}" IsDefault="True" Margin="5"/>
+            <Button Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Top" Width="76" IsCancel="True" Margin="5"/>
+        </StackPanel>
     </StackPanel>
 </Window>
