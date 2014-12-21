@@ -73,7 +73,13 @@
         <DataGrid x:Name="TransactionDataGrid" 
     		ItemsSource="{Binding AllTransactionsClass.Transactions}" 
     		SelectedItem="{Binding AllTransactionsClass.SelectedTransaction}"
-    		IsReadOnly ="True" Margin="5">
+    		IsReadOnly ="True" Margin="5" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Transaction.Date}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Transaction.Description}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Transaction.User.Name}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="Your sum" Binding="{Binding Sum}" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
             <DataGrid.InputBindings>
                 <MouseBinding
     				MouseAction="LeftDoubleClick"

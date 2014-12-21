@@ -25,9 +25,9 @@ namespace PerFA.Model
         private readonly Filters.TypeFilter typeFilter = new Filters.TypeFilter(true);
         public Filters.TypeFilter TypeFilter { get { return typeFilter; } }
 
-        public TransactionPresentation SelectedTransaction { get; set; }
+        public TransactionUser SelectedTransaction { get; set; }
 
-        public ReadOnlyObservableCollection<TransactionPresentation> Transactions { get; set; }
+        public ObservableCollection<TransactionUser> Transactions { get; set; }
 
         public decimal Income { get; set; }
         public decimal Expences { get; set; }
@@ -50,27 +50,18 @@ namespace PerFA.Model
             var uId = userId.Value;
 
             Debug.WriteLine("Loading transactions for {0}", uId);
-            using (var db = new DatabaseContext())
-            {
-                Transactions = new ReadOnlyObservableCollection<TransactionPresentation>(
-                    new ObservableCollection<TransactionPresentation>(db.TransactionUsers
-                        .Where(x => (x.ID_user == uId) &&
-                            ((TypeFilter.WageChecked && x.Transaction.Wage != null)
-                            || (TypeFilter.HouseholdExpensesChecked && x.Transaction.HouseholdExpence != null)))
-                        .Select(x => new TransactionPresentation
-                        {
-                            Description = x.Transaction.Description,
-                            AuthorName = x.Transaction.User.Name,
-                            Sum = x.Sum,
-                            Date = x.Transaction.Date,
-                            UserId = x.ID_user,
-                            TransactionId = x.ID_transaction
-                        })));
+            var db = new DatabaseContext();
+            Transactions = new ObservableCollection<TransactionUser>(db.TransactionUsers
+                    .Where(x => (x.ID_user == uId) &&
+                        ((TypeFilter.WageChecked && x.Transaction.Wage != null)
+                        || (TypeFilter.HouseholdExpensesChecked && 
+                                x.Transaction.HouseholdExpence != null)))
+                    .Select(x => x));
 
-                Income = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s > 0).Sum();
-                Expences = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s < 0).Sum();
-                Balance = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Sum();
-            }
+            Income = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s > 0).Sum();
+            Expences = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s < 0).Sum();
+            Balance = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Sum();
+            
         }
 
         public event Action<int, int> TransactionLoadSucceed;
@@ -92,7 +83,7 @@ namespace PerFA.Model
             if (SelectedTransaction != null)
             {
                 OnTransactionLoadSucceed(
-                    SelectedTransaction.UserId, SelectedTransaction.TransactionId);
+                    SelectedTransaction.ID_user, SelectedTransaction.ID_transaction);
             }
             else
             {
@@ -137,8 +128,8 @@ namespace PerFA.Model
                 using (var db = new DatabaseContext())
                 {
                     db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
-                        x.ID_transaction == SelectedTransaction.TransactionId &&
-                        x.ID_user == SelectedTransaction.UserId));
+                        x.ID_transaction == SelectedTransaction.ID_transaction &&
+                        x.ID_user == SelectedTransaction.ID_user));
                     db.SaveChanges();
                 }
                 LoadTransactions();

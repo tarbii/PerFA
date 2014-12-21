@@ -121,7 +121,6 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TransactionClass.cs" />
-    <Compile Include="Model\TransactionPresentation.cs" />
     <Compile Include="Model\AllTransactionsClass.cs" />
     <Compile Include="Model\TransactionTypes\DTHouseholdExpenses.cs" />
     <Compile Include="Model\TransactionTypes\DTWage.cs" />
