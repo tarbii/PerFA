@@ -17,7 +17,7 @@ namespace PerFA.Model
     public partial class Deposit
     {
         public int ID { get; set; }
-        public Nullable<decimal> Deposit_rate___ { get; set; }
+        public Nullable<double> Deposit_rate___ { get; set; }
         public Nullable<decimal> Money_on_deposit { get; set; }
         public Nullable<decimal> Expected_income { get; set; }
     

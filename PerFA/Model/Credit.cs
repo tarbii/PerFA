@@ -17,7 +17,7 @@ namespace PerFA.Model
     public partial class Credit
     {
         public int ID { get; set; }
-        public Nullable<decimal> Credit_rate___ { get; set; }
+        public Nullable<double> Credit_rate___ { get; set; }
         public Nullable<decimal> Credti_body { get; set; }
         public Nullable<decimal> Monthly_payment { get; set; }
     

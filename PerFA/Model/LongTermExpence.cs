@@ -19,7 +19,7 @@ namespace PerFA.Model
         public int ID { get; set; }
         public string LtE_type { get; set; }
         public string Comment { get; set; }
-        public Nullable<double> Term_of_usage { get; set; }
+        public string Term_of_usage { get; set; }
     
         public virtual Transaction Transaction { get; set; }
     }

@@ -55,7 +55,7 @@
                     </DockPanel>
                     <DockPanel Margin="5">
                         <Label Content="Rate" DockPanel.Dock="Top"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding Wage_rate, StringFormat=P2}"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Wage_rate, StringFormat=N2}"/>
                     </DockPanel>
                 </StackPanel>
 

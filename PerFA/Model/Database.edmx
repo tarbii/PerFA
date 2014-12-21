@@ -10,7 +10,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Credit rate(%)" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="Credit rate(%)" Type="float" />
           <Property Name="Credti body" Type="money" />
           <Property Name="Monthly payment" Type="money" />
         </EntityType>
@@ -19,7 +19,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Deposit rate(%)" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="Deposit rate(%)" Type="float" />
           <Property Name="Money on deposit" Type="money" />
           <Property Name="Expected income" Type="money" />
         </EntityType>
@@ -28,7 +28,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Grant type" Type="nchar" MaxLength="10" />
+          <Property Name="Grant type" Type="varchar(max)" />
           <Property Name="Grant-rate" Type="money" />
         </EntityType>
         <EntityType Name="HouseholdExpence">
@@ -44,25 +44,25 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="LtE type" Type="nchar" MaxLength="10" />
-          <Property Name="Comment" Type="nchar" MaxLength="10" />
-          <Property Name="Term of usage" Type="float" />
+          <Property Name="LtE type" Type="varchar(max)" />
+          <Property Name="Comment" Type="varchar(max)" />
+          <Property Name="Term of usage" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="OtherExpence">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="OE type" Type="nchar" MaxLength="10" />
-          <Property Name="Comment" Type="nchar" MaxLength="10" />
+          <Property Name="OE type" Type="varchar(max)" />
+          <Property Name="Comment" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="OtherIncome">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="OI type" Type="nchar" MaxLength="10" />
-          <Property Name="Comment" Type="nchar" MaxLength="10" />
+          <Property Name="OI type" Type="varchar(max)" />
+          <Property Name="Comment" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Rent">
           <Key>
@@ -115,7 +115,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Workplace" Type="nchar" MaxLength="10" />
+          <Property Name="Workplace" Type="varchar(max)" />
           <Property Name="Wage-rate" Type="money" />
         </EntityType>
         <Association Name="FK_Credit_Transaction">
@@ -335,7 +335,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Credit_rate___" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Credit_rate___" Type="Double" />
           <Property Name="Credti_body" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Monthly_payment" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Credit_Transaction" FromRole="Credit" ToRole="Transaction" />
@@ -345,7 +345,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Deposit_rate___" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Deposit_rate___" Type="Double" />
           <Property Name="Money_on_deposit" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Expected_income" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Deposit_Transaction" FromRole="Deposit" ToRole="Transaction" />
@@ -355,7 +355,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Grant_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Grant_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Grant_rate" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Grant_Transaction" FromRole="Grant" ToRole="Transaction" />
         </EntityType>
@@ -373,9 +373,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="LtE_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Term_of_usage" Type="Double" />
+          <Property Name="LtE_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Term_of_usage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Long_term_expence_Transaction" FromRole="LongTermExpence" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="OtherExpence">
@@ -383,8 +383,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="OE_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OE_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Other_expence_Transaction" FromRole="OtherExpence" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="OtherIncome">
@@ -392,8 +392,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="OI_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OI_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Other_income_Transaction" FromRole="OtherIncome" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="Rent">
@@ -463,7 +463,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Workplace" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Workplace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Wage_rate" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Wage_Transaction" FromRole="Wage" ToRole="Transaction" />
         </EntityType>
