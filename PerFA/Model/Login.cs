@@ -6,62 +6,24 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
+using PropertyChanged;
 
 namespace PerFA.Model
 {
-    class Login : INotifyPropertyChanged
+    [ImplementPropertyChanged]
+    class Login
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public Login()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            LoginData = "alex";
+            Password = "alex";
+            LoginMessage = "Введіть логін та пароль для авторизації.";
         }
 
-        private string loginData = "alex";
-        private string password = "alex";
-        private string loginMessage = "Введіть логін та пароль для авторизації.";
-
-        public string LoginMessage
-        {
-            get { return loginMessage; }
-            private set
-            {
-                if (loginMessage != value)
-                {
-                    loginMessage = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string LoginData
-        {
-            get { return loginData; }
-            set
-            {
-                if (loginData != value)
-                {
-                    loginData = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Password
-        {
-            get { return password; }
-            set
-            {
-                if (password != value)
-                {
-                    password = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public string LoginMessage { get; set; }
+        public string LoginData { get; set; }
+        public string Password { get; set; }
 
         public event Action<int> LoginSucceed;
 
@@ -83,8 +45,7 @@ namespace PerFA.Model
                 }
                 else
                 {
-                    LoginMessage = db.Users.Select(x => x.Login).Contains(loginData)
-                        ? "Невірний пароль" : "Невірний логін";
+                    LoginMessage = "Невірний логін або пароль";
                 }
             }
         }
