@@ -25,11 +25,39 @@ namespace PerFA.Model
                 db, transactionUser.ID_user, transactionUser.ID_transaction);
             if (transactionUser.Transaction.HouseholdExpence != null)
             {
-                type = "Побутові витрати";
+                type = "Household expenses";
             }
             else if (transactionUser.Transaction.Wage != null)
             {
-                type = "Заробітня плата";
+                type = "Wage";
+            }
+            else if (transactionUser.Transaction.Deposit != null)
+            {
+                type = "Income on deposit";
+            }
+            else if (transactionUser.Transaction.Grant != null)
+            {
+                type = "Scholarship";
+            }
+            else if (transactionUser.Transaction.OtherIncome != null)
+            {
+                type = "Other income";
+            }
+            else if (transactionUser.Transaction.Rent != null)
+            {
+                type = "Rent";
+            }
+            else if (transactionUser.Transaction.Credit != null)
+            {
+                type = "Credit expenses";
+            }
+            else if (transactionUser.Transaction.LongTermExpence != null)
+            {
+                type = "Long term expenses";
+            }
+            else if (transactionUser.Transaction.OtherExpence != null)
+            {
+                type = "Other expences";
             }
         }
         

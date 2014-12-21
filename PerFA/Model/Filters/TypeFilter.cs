@@ -76,13 +76,115 @@ namespace PerFA.Model.Filters
             }
         }
 
-        //TODO: add transaction types (propertiess)
+        private bool incomeOnDepositChecked;
+        public bool IncomeOnDepositChecked
+        {
+            get { return incomeOnDepositChecked; }
+            set
+            {
+                if (incomeOnDepositChecked != value)
+                {
+                    incomeOnDepositChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+
+        private bool scholarshipChecked;
+        public bool ScholarshipChecked
+        {
+            get { return scholarshipChecked; }
+            set
+            {
+                if (scholarshipChecked != value)
+                {
+                    scholarshipChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+        
+        private bool otherIncomeChecked;
+        public bool OtherIncomeChecked
+        {
+            get { return otherIncomeChecked; }
+            set
+            {
+                if (otherIncomeChecked != value)
+                {
+                    otherIncomeChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+        
+        private bool rentChecked;
+        public bool RentChecked
+        {
+            get { return rentChecked; }
+            set
+            {
+                if (rentChecked != value)
+                {
+                    rentChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+        
+        private bool creditExpensesChecked;
+        public bool CreditExpensesChecked
+        {
+            get { return creditExpensesChecked; }
+            set
+            {
+                if (creditExpensesChecked != value)
+                {
+                    creditExpensesChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+        
+        private bool longTermldExpensesChecked;
+        public bool LongTermldExpensesChecked
+        {
+            get { return longTermldExpensesChecked; }
+            set
+            {
+                if (longTermldExpensesChecked != value)
+                {
+                    longTermldExpensesChecked = value;
+                    OnChanged();
+                }
+            }
+        }
+        
+        private bool otherdExpensesChecked;
+        public bool OtherdExpensesChecked
+        {
+            get { return otherdExpensesChecked; }
+            set
+            {
+                if (otherdExpensesChecked != value)
+                {
+                    otherdExpensesChecked = value;
+                    OnChanged();
+                }
+            }
+        }
 
         private IEnumerable<bool> EnumerateCheckeds()
         {
-            //TODO: add transaction types
             yield return WageChecked;
             yield return HouseholdExpensesChecked;
+            yield return IncomeOnDepositChecked;
+            yield return ScholarshipChecked;
+            yield return OtherIncomeChecked;
+            yield return RentChecked;
+            yield return CreditExpensesChecked;
+            yield return LongTermldExpensesChecked;
+            yield return OtherdExpensesChecked;
         } 
 
         public bool? AllChecked
@@ -107,9 +209,15 @@ namespace PerFA.Model.Filters
                 }
 
                 muted = true;
-                //TODO: add transaction types
                 HouseholdExpensesChecked
                     = WageChecked
+                    = IncomeOnDepositChecked
+                    = ScholarshipChecked
+                    = OtherIncomeChecked
+                    = RentChecked
+                    = CreditExpensesChecked
+                    = LongTermldExpensesChecked
+                    = OtherdExpensesChecked
                     = value.Value;
                 muted = false;
 

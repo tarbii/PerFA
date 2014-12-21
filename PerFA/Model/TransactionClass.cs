@@ -45,26 +45,6 @@ namespace PerFA.Model
 
         public void LoadTransaction(int userId, int? transactionId)
         {
-            //var users = db.TransactionUsers.Where(x => x.ID_transaction == transactionId)
-            //    .Select(x => new { x.User.Name, x.Sum })
-            //    .ToDictionary(x => x.Name, x => x.Sum);
-
-            //Transaction = db.TransactionUsers
-            //    .Where(x => x.ID_user == userId && x.ID_transaction == transactionId)
-            //    .Select(x => new DetailedTransaction
-            //    {
-            //        Description = x.Transaction.Description,
-            //        UserName = x.User.Name,
-            //        AuthorName = x.Transaction.User.Name,
-            //        Sum = x.Sum,
-            //        Date = x.Transaction.Date,
-            //        UserId = userId,
-            //        TransactionId = transactionId,
-            //    }).First();
-
-            //SetTypeofTransaction(db);
-            //Transaction.UsersSumsDictionary = users;
-
             var transactionUser = db.TransactionUsers
                 .First(x => x.ID_user == userId && x.ID_transaction == transactionId);
             Transaction = new DetailedTransaction(transactionUser, db);
@@ -84,18 +64,59 @@ namespace PerFA.Model
 
             switch (typeOfTransaction)
             {
-                case "Побутові витрати":
+                case "Household expenses":
                     var hexp = db.HouseholdExpences.Create();
                     hexp.Transaction = t;
                     db.HouseholdExpences.Add(hexp);
                     break;
 
-                case "Заробітня плата":
-                    var wage = db.Wages.Create();
-                    wage.Transaction = t;
-                    db.Wages.Add(wage);
+                case "Wage":
+                    var cExp = db.Wages.Create();
+                    cExp.Transaction = t;
+                    db.Wages.Add(cExp);
                     break;
 
+                case "Income on deposit":
+                    var inDep = db.Deposits.Create();
+                    inDep.Transaction = t;
+                    db.Deposits.Add(inDep);
+                    break;
+
+                case "Scholarship":
+                    var sch = db.Grants.Create();
+                    sch.Transaction = t;
+                    db.Grants.Add(sch);
+                    break;
+
+                case "Other income":
+                    var oi = db.OtherIncomes.Create();
+                    oi.Transaction = t;
+                    db.OtherIncomes.Add(oi);
+                    break;
+
+                case "Rent":
+                    var rent = db.Rents.Create();
+                    rent.Transaction = t;
+                    db.Rents.Add(rent);
+                    break;
+
+                case "Credit expenses":
+                    var credit = db.Credits.Create();
+                    credit.Transaction = t;
+                    db.Credits.Add(credit);
+                    break;
+
+                case "Long term expenses":
+                    var longTerm = db.LongTermExpences.Create();
+                    longTerm.Transaction = t;
+                    db.LongTermExpences.Add(longTerm);
+                    break;
+
+                case "Other expences":
+                    var otherExp = db.OtherExpences.Create();
+                    otherExp.Transaction = t;
+                    db.OtherExpences.Add(otherExp);
+                    break;
             }
 
             Transaction = new DetailedTransaction(tu, db);
@@ -114,69 +135,5 @@ namespace PerFA.Model
             db.SaveChanges();
             OnChangesSaved();
         }
-
-        //private void SetTypeofTransaction(DatabaseContext db)
-        //{
-        //    if (db.Credits.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Витрати по кредиту";
-        //        return;
-        //    }
-        //    if (db.Deposits.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Дохід по депозиту";
-        //        return;
-        //    }
-        //    if (db.Grants.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Стипендія";
-        //        return;
-        //    }
-        //    if (db.HouseholdExpences.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "";
-        //        Transaction.HouseholdExpensesDetails = db.HouseholdExpences
-        //            .Where(x => x.ID == Transaction.TransactionId)
-        //            .Select(x => new DTHouseholdExpenses
-        //            {
-        //                SubType = x.HE_type,
-        //                Comment = x.Comment
-        //            }).First();
-        //        return;
-        //    }
-        //    if (db.LongTermExpences.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Довгострокові витрати";
-        //        return;
-        //    }
-        //    if (db.OtherExpences.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Витрати";
-        //        return;
-        //    }
-        //    if (db.OtherIncomes.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Інший дохід";
-        //        return;
-        //    }
-        //    if (db.Rents.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = "Оренда житла";
-        //        return;
-        //    }
-        //    if (db.Wages.Any(x => x.ID == Transaction.TransactionId))
-        //    {
-        //        Transaction.Type = ;
-        //        Transaction.WageDetails = db.Wages
-        //            .Where(x => x.ID == Transaction.TransactionId)
-        //            .Select(x => new DTWage
-        //            {
-        //                WorkPlace = x.Workplace,
-        //                WageRate = x.Wage_rate
-        //            }).First();
-        //        return;
-        //    }
-        //    Transaction.Type = "Тип транзакції невідомий";
-        //}
     }
 }

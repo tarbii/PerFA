@@ -20,15 +20,15 @@ namespace PerFA.Model
     {
         public List<string> NamesList = new List<string>
         {
-           "Заробітня плата",
-           "Дохід по депозиту",
-           "Стипендія",
-           "Інший дохід",
-           "Побутові витрати",
-           "Оренда житла",
-           "Витрати по кредиту",
-           "Довгострокові витрати",
-           "Інші витрати"
+           "Wage",
+           "Income on deposit",
+           "Scholarship",
+           "Other income",
+           "Household expenses",
+           "Rent",
+           "Credit expenses",
+           "Long term expenses",
+           "Other expences"
         };
     }
 }

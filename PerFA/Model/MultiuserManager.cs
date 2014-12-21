@@ -63,6 +63,7 @@ namespace PerFA.Model
                 SelectedUser = OtherUsers.FirstOrDefault();
             }
         }
+        
         public void AddTransactionUser()
         {
             if (SelectedUser != null)
