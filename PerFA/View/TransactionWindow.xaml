@@ -8,6 +8,7 @@
     DataContextChanged="Window_DataContextChanged" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="400" SizeToContent="Height" Icon="/PerFA;component/Abacus.ico" ShowInTaskbar="False">
     <Window.Resources>
         <view:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <view:UserToStringConverter x:Key="UserToStringConverter" />
     </Window.Resources>
     <Window.DataContext>
         <ViewModel:VMTransaction/>
@@ -59,10 +60,19 @@
         </StackPanel>
         <DockPanel>
             <StackPanel DockPanel.Dock="Right">
-                <Button DockPanel.Dock="Top" Width="73" Margin="5" Command="{Binding DeleteTransactionUserCommand}">Delete</Button>
+                <Button Width="73" Margin="5" Command="{Binding DeleteTransactionUserCommand}">Delete</Button>
                 <Separator Margin="5"></Separator>
-                <ComboBox DockPanel.Dock="Top" Margin="5"></ComboBox>
-                <Button DockPanel.Dock="Top" Width="73" Margin="5">Add</Button>
+                <ComboBox Margin="5" 
+                          DataContext="{Binding Transaction.Transaction.MultiuserManager}"
+                          ItemsSource="{Binding OtherUsers}"
+                          SelectedItem="{Binding SelectedUser}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource UserToStringConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Width="73" Margin="5" Command="{Binding AddTransactionUserCommand}">Add</Button>
             </StackPanel>
             <DataGrid VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False"
         		ItemsSource="{Binding Transaction.Transaction.MultiuserManager.TransactionUsersCollection}"

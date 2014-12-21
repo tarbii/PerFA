@@ -31,27 +31,54 @@ namespace PerFA.Model
         }
 
         public ObservableCollection<TransactionUser> TransactionUsersCollection 
-        { get; set; }
+        { get; private set; }
+
+        public ObservableCollection<User> OtherUsers { get; private set; }
+        public User SelectedUser { get; set; }
 
         public TransactionUser SelectedTransactionUser { get; set; }
-
-        public void DeleteTransactionUser(object parameter)
-        {
-            if (SelectedTransactionUser != null)
-            {
-                db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
-                    x.ID_transaction == SelectedTransactionUser.ID_transaction
-                    && x.ID_user == SelectedTransactionUser.ID_user));
-                
-                LoadTransactionUsersCollection();
-            }
-        }
 
         private void LoadTransactionUsersCollection()
         {
             var transactionUsers = db.TransactionUsers
                 .Where(x => x.ID_transaction == transactionId);
             TransactionUsersCollection = new ObservableCollection<TransactionUser>(transactionUsers);
+
+            var otherUsers = db.Users.Where(u => !db.TransactionUsers
+                .Where(x => x.ID_transaction == transactionId).Any(tu =>
+                u.ID == tu.User.ID));
+            OtherUsers = new ObservableCollection<User>(otherUsers);
+            SelectedUser = OtherUsers.FirstOrDefault();
         }
+
+        public void DeleteTransactionUser(object parameter)
+        {
+            if (SelectedTransactionUser != null)
+            {
+                OtherUsers.Add(SelectedTransactionUser.User);
+                
+                db.TransactionUsers.Remove(SelectedTransactionUser);
+
+                TransactionUsersCollection.Remove(SelectedTransactionUser);
+                SelectedUser = OtherUsers.FirstOrDefault();
+            }
+        }
+        public void AddTransactionUser()
+        {
+            if (SelectedUser != null)
+            {
+                var thisTu = TransactionUsersCollection.First();
+                var tu = db.TransactionUsers.Create();
+                tu.Transaction = thisTu.Transaction;
+                tu.User = SelectedUser;
+                db.TransactionUsers.Add(tu);
+
+                TransactionUsersCollection.Add(tu);
+                OtherUsers.Remove(SelectedUser);
+                SelectedUser = OtherUsers.FirstOrDefault();
+            }
+        }
+
+        public ICollection Collection { get; set; }
     }
 }
