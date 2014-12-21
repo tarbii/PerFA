@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PerFAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Credit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Credit rate(%)" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="Credti body" Type="money" />
+          <Property Name="Monthly payment" Type="money" />
+        </EntityType>
+        <EntityType Name="Deposit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Deposit rate(%)" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="Money on deposit" Type="money" />
+          <Property Name="Expected income" Type="money" />
+        </EntityType>
+        <EntityType Name="Grant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Grant type" Type="nchar" MaxLength="10" />
+          <Property Name="Grant-rate" Type="money" />
+        </EntityType>
+        <EntityType Name="HouseholdExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="HE type" Type="varchar(max)" />
+          <Property Name="Comment" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="LongTermExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LtE type" Type="nchar" MaxLength="10" />
+          <Property Name="Comment" Type="nchar" MaxLength="10" />
+          <Property Name="Term of usage" Type="float" />
+        </EntityType>
+        <EntityType Name="OtherExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OE type" Type="nchar" MaxLength="10" />
+          <Property Name="Comment" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="OtherIncome">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OI type" Type="nchar" MaxLength="10" />
+          <Property Name="Comment" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="money" />
+          <Property Name="Meters" Type="money" />
+          <Property Name="Public utilities" Type="money" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Author_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionUser">
+          <Key>
+            <PropertyRef Name="ID_transaction" />
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_transaction" Type="int" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+          <Property Name="Sum" Type="money" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Login" Type="varchar(max)" />
+          <Property Name="Password" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Wage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Workplace" Type="nchar" MaxLength="10" />
+          <Property Name="Wage-rate" Type="money" />
+        </EntityType>
+        <Association Name="FK_Credit_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grant_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Grant" Type="Self.Grant" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Grant">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Household expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="HouseholdExpence" Type="Self.HouseholdExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HouseholdExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Long-term expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="LongTermExpence" Type="Self.LongTermExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LongTermExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Other expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="OtherExpence" Type="Self.OtherExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OtherExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Other income_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="OtherIncome" Type="Self.OtherIncome" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OtherIncome">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rent_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Rent" Type="Self.Rent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction-User_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="TransactionUser" Type="Self.TransactionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionUser">
+              <PropertyRef Name="ID_transaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction-User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="TransactionUser" Type="Self.TransactionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionUser">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wage_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Wage" Type="Self.Wage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wage">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PerFAModelStoreContainer">
+          <EntitySet Name="Credit" EntityType="Self.Credit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deposit" EntityType="Self.Deposit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grant" EntityType="Self.Grant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseholdExpence" EntityType="Self.HouseholdExpence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LongTermExpence" EntityType="Self.LongTermExpence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherExpence" EntityType="Self.OtherExpence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OtherIncome" EntityType="Self.OtherIncome" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rent" EntityType="Self.Rent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionUser" EntityType="Self.TransactionUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wage" EntityType="Self.Wage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Credit_Transaction" Association="Self.FK_Credit_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_Transaction" Association="Self.FK_Deposit_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Deposit" EntitySet="Deposit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grant_Transaction" Association="Self.FK_Grant_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Grant" EntitySet="Grant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Household expence_Transaction" Association="Self.FK_Household expence_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="HouseholdExpence" EntitySet="HouseholdExpence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Long-term expence_Transaction" Association="Self.FK_Long-term expence_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="LongTermExpence" EntitySet="LongTermExpence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Other expence_Transaction" Association="Self.FK_Other expence_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="OtherExpence" EntitySet="OtherExpence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Other income_Transaction" Association="Self.FK_Other income_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="OtherIncome" EntitySet="OtherIncome" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rent_Transaction" Association="Self.FK_Rent_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Rent" EntitySet="Rent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User" Association="Self.FK_Transaction_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction-User_Transaction" Association="Self.FK_Transaction-User_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="TransactionUser" EntitySet="TransactionUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction-User_User" Association="Self.FK_Transaction-User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TransactionUser" EntitySet="TransactionUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wage_Transaction" Association="Self.FK_Wage_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="Wage" EntitySet="Wage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PerFAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Credit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Credit_rate___" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Credti_body" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Monthly_payment" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Credit_Transaction" FromRole="Credit" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Deposit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Deposit_rate___" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Money_on_deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Expected_income" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Deposit_Transaction" FromRole="Deposit" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Grant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Grant_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Grant_rate" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Grant_Transaction" FromRole="Grant" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="HouseholdExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="HE_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Household_expence_Transaction" FromRole="HouseholdExpence" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="LongTermExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LtE_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Term_of_usage" Type="Double" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Long_term_expence_Transaction" FromRole="LongTermExpence" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="OtherExpence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OE_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Other_expence_Transaction" FromRole="OtherExpence" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="OtherIncome">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OI_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Other_income_Transaction" FromRole="OtherIncome" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Meters" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Public_utilities" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Rent_Transaction" FromRole="Rent" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Author_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Credit" Relationship="Self.FK_Credit_Transaction" FromRole="Transaction" ToRole="Credit" />
+          <NavigationProperty Name="Deposit" Relationship="Self.FK_Deposit_Transaction" FromRole="Transaction" ToRole="Deposit" />
+          <NavigationProperty Name="Grant" Relationship="Self.FK_Grant_Transaction" FromRole="Transaction" ToRole="Grant" />
+          <NavigationProperty Name="HouseholdExpence" Relationship="Self.FK_Household_expence_Transaction" FromRole="Transaction" ToRole="HouseholdExpence" />
+          <NavigationProperty Name="LongTermExpence" Relationship="Self.FK_Long_term_expence_Transaction" FromRole="Transaction" ToRole="LongTermExpence" />
+          <NavigationProperty Name="OtherExpence" Relationship="Self.FK_Other_expence_Transaction" FromRole="Transaction" ToRole="OtherExpence" />
+          <NavigationProperty Name="OtherIncome" Relationship="Self.FK_Other_income_Transaction" FromRole="Transaction" ToRole="OtherIncome" />
+          <NavigationProperty Name="Rent" Relationship="Self.FK_Rent_Transaction" FromRole="Transaction" ToRole="Rent" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Transaction_User" FromRole="Transaction" ToRole="User" />
+          <NavigationProperty Name="TransactionUsers" Relationship="Self.FK_Transaction_User_Transaction" FromRole="Transaction" ToRole="TransactionUser" />
+          <NavigationProperty Name="Wage" Relationship="Self.FK_Wage_Transaction" FromRole="Transaction" ToRole="Wage" />
+        </EntityType>
+        <EntityType Name="TransactionUser">
+          <Key>
+            <PropertyRef Name="ID_transaction" />
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_transaction" Type="Int32" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <Property Name="Sum" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_User_Transaction" FromRole="TransactionUser" ToRole="Transaction" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Transaction_User_User" FromRole="TransactionUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_User" FromRole="User" ToRole="Transaction" />
+          <NavigationProperty Name="TransactionUsers" Relationship="Self.FK_Transaction_User_User" FromRole="User" ToRole="TransactionUser" />
+        </EntityType>
+        <EntityType Name="Wage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Workplace" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Wage_rate" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Wage_Transaction" FromRole="Wage" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK_Credit_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposit_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Deposit" Type="Self.Deposit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grant_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Grant" Type="Self.Grant" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Grant">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Household_expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="HouseholdExpence" Type="Self.HouseholdExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HouseholdExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Long_term_expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="LongTermExpence" Type="Self.LongTermExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LongTermExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Other_expence_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="OtherExpence" Type="Self.OtherExpence" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OtherExpence">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Other_income_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="OtherIncome" Type="Self.OtherIncome" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OtherIncome">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rent_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Rent" Type="Self.Rent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Author_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="TransactionUser" Type="Self.TransactionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionUser">
+              <PropertyRef Name="ID_transaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wage_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="Wage" Type="Self.Wage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wage">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="TransactionUser" Type="Self.TransactionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TransactionUser">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PerFAEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Credits" EntityType="Self.Credit" />
+          <EntitySet Name="Deposits" EntityType="Self.Deposit" />
+          <EntitySet Name="Grants" EntityType="Self.Grant" />
+          <EntitySet Name="HouseholdExpences" EntityType="Self.HouseholdExpence" />
+          <EntitySet Name="LongTermExpences" EntityType="Self.LongTermExpence" />
+          <EntitySet Name="OtherExpences" EntityType="Self.OtherExpence" />
+          <EntitySet Name="OtherIncomes" EntityType="Self.OtherIncome" />
+          <EntitySet Name="Rents" EntityType="Self.Rent" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="TransactionUsers" EntityType="Self.TransactionUser" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Wages" EntityType="Self.Wage" />
+          <AssociationSet Name="FK_Credit_Transaction" Association="Self.FK_Credit_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="Credit" EntitySet="Credits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposit_Transaction" Association="Self.FK_Deposit_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="Deposit" EntitySet="Deposits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grant_Transaction" Association="Self.FK_Grant_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="Grant" EntitySet="Grants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Household_expence_Transaction" Association="Self.FK_Household_expence_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="HouseholdExpence" EntitySet="HouseholdExpences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Long_term_expence_Transaction" Association="Self.FK_Long_term_expence_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="LongTermExpence" EntitySet="LongTermExpences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Other_expence_Transaction" Association="Self.FK_Other_expence_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="OtherExpence" EntitySet="OtherExpences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Other_income_Transaction" Association="Self.FK_Other_income_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="OtherIncome" EntitySet="OtherIncomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rent_Transaction" Association="Self.FK_Rent_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="Rent" EntitySet="Rents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User" Association="Self.FK_Transaction_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User_Transaction" Association="Self.FK_Transaction_User_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="TransactionUser" EntitySet="TransactionUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wage_Transaction" Association="Self.FK_Wage_Transaction">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="Wage" EntitySet="Wages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User_User" Association="Self.FK_Transaction_User_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TransactionUser" EntitySet="TransactionUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PerFAModelStoreContainer" CdmEntityContainer="PerFAEntities1">
+          <EntitySetMapping Name="Credits">
+            <EntityTypeMapping TypeName="PerFAModel.Credit">
+              <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Credit_rate___" ColumnName="Credit rate(%)" />
+                <ScalarProperty Name="Credti_body" ColumnName="Credti body" />
+                <ScalarProperty Name="Monthly_payment" ColumnName="Monthly payment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deposits">
+            <EntityTypeMapping TypeName="PerFAModel.Deposit">
+              <MappingFragment StoreEntitySet="Deposit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Deposit_rate___" ColumnName="Deposit rate(%)" />
+                <ScalarProperty Name="Money_on_deposit" ColumnName="Money on deposit" />
+                <ScalarProperty Name="Expected_income" ColumnName="Expected income" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grants">
+            <EntityTypeMapping TypeName="PerFAModel.Grant">
+              <MappingFragment StoreEntitySet="Grant">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Grant_type" ColumnName="Grant type" />
+                <ScalarProperty Name="Grant_rate" ColumnName="Grant-rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseholdExpences">
+            <EntityTypeMapping TypeName="PerFAModel.HouseholdExpence">
+              <MappingFragment StoreEntitySet="HouseholdExpence">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HE_type" ColumnName="HE type" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LongTermExpences">
+            <EntityTypeMapping TypeName="PerFAModel.LongTermExpence">
+              <MappingFragment StoreEntitySet="LongTermExpence">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LtE_type" ColumnName="LtE type" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Term_of_usage" ColumnName="Term of usage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherExpences">
+            <EntityTypeMapping TypeName="PerFAModel.OtherExpence">
+              <MappingFragment StoreEntitySet="OtherExpence">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OE_type" ColumnName="OE type" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtherIncomes">
+            <EntityTypeMapping TypeName="PerFAModel.OtherIncome">
+              <MappingFragment StoreEntitySet="OtherIncome">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OI_type" ColumnName="OI type" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rents">
+            <EntityTypeMapping TypeName="PerFAModel.Rent">
+              <MappingFragment StoreEntitySet="Rent">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Meters" ColumnName="Meters" />
+                <ScalarProperty Name="Public_utilities" ColumnName="Public utilities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PerFAModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="PerFAModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author_ID" ColumnName="Author_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionUsers">
+            <EntityTypeMapping TypeName="PerFAModel.TransactionUser">
+              <MappingFragment StoreEntitySet="TransactionUser">
+                <ScalarProperty Name="ID_transaction" ColumnName="ID_transaction" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PerFAModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wages">
+            <EntityTypeMapping TypeName="PerFAModel.Wage">
+              <MappingFragment StoreEntitySet="Wage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Workplace" ColumnName="Workplace" />
+                <ScalarProperty Name="Wage_rate" ColumnName="Wage-rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="63dd29b2608b44a9a71ffbb7580af865" Name="Diagram1">
+        <EntityTypeShape EntityType="PerFAModel.Credit" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.Deposit" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.Grant" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.HouseholdExpence" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.LongTermExpence" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.OtherExpence" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.OtherIncome" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.Rent" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.Transaction" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.TransactionUser" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.User" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerFAModel.Wage" Width="1.5" PointX="5.25" PointY="27.25" IsExpanded="true" />
+        <AssociationConnector Association="PerFAModel.FK_Credit_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Deposit_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Grant_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Household_expence_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Long_term_expence_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Other_expence_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Other_income_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Rent_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Transaction_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Transaction_User_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Wage_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="PerFAModel.FK_Transaction_User_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
