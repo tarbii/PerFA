@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using PerFA.Annotations;
-using PerFA.Model.Database;
 
 namespace PerFA.Model
 {

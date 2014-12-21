@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using PerFA.Model.Database;
+using PerFA.Model;
 using PerFA.ViewModel;
 
 namespace PerFA.View

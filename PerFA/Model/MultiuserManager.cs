@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using PerFA.Annotations;
-using PerFA.Model.Database;
 
 namespace PerFA.Model
 {
