@@ -8,20 +8,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PerFA.Annotations;
+using PropertyChanged;
 
 namespace PerFA.Model
 {
-    class AllTransactionsClass : INotifyPropertyChanged
+    [ImplementPropertyChanged]
+    class AllTransactionsClass
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private int? userId;
         public AllTransactionsClass()
         {
@@ -32,75 +25,14 @@ namespace PerFA.Model
         private readonly Filters.TypeFilter typeFilter = new Filters.TypeFilter(true);
         public Filters.TypeFilter TypeFilter { get { return typeFilter; } }
 
-        private TransactionPresentation selectedTransaction;
-        public TransactionPresentation SelectedTransaction
-        {
-            get { return selectedTransaction; }
-            set
-            {
-                if (selectedTransaction != value)
-                {
-                    selectedTransaction = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public TransactionPresentation SelectedTransaction { get; set; }
 
-        private ReadOnlyObservableCollection<TransactionPresentation> transactions;
-        public ReadOnlyObservableCollection<TransactionPresentation> Transactions
-        {
-            get { return transactions; }
-            private set
-            {
-                if (transactions != value)
-                {
-                    transactions = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public ReadOnlyObservableCollection<TransactionPresentation> Transactions { get; set; }
 
-        private decimal income;
-        public decimal Income
-        {
-            get { return income; }
-            private set
-            {
-                if (income != value)
-                {
-                    income = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public decimal Income { get; set; }
+        public decimal Expences { get; set; }
+        public decimal Balance { get; set; }
 
-        private decimal expences;
-        public decimal Expences
-        {
-            get { return expences; }
-            private set
-            {
-                if (expences != value)
-                {
-                    expences = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private decimal balance;
-        public decimal Balance
-        {
-            get { return balance; }
-            private set
-            {
-                if (balance != value)
-                {
-                    balance = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public void Initialize(int uId)
         {
@@ -170,19 +102,7 @@ namespace PerFA.Model
 
         public List<string> NamesOfTransaction { get; private set; }
 
-        private string selectedNameOfTransaction;
-        public string SelectedNameOfTransaction
-        {
-            get { return selectedNameOfTransaction; }
-            set
-            {
-                if (selectedNameOfTransaction != value)
-                {
-                    selectedNameOfTransaction = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public string SelectedNameOfTransaction { get; set; }
 
         public event Action<string> TransactionCreationucceed;
         private void OnTransactionCreationSucceed(string typeOfTransaction)
