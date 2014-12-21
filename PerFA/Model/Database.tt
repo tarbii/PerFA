@@ -24,6 +24,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
+[ImplementPropertyChanged]
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
 <#
@@ -418,8 +419,9 @@ public class CodeStringGenerator
         return inHeader == string.IsNullOrEmpty(_code.VsNamespaceSuggestion())
             ? string.Format(
                 CultureInfo.InvariantCulture,
-                "{0}using System;{1}" +
-                "{2}",
+                "{0}using System;{1}"
+				+ Environment.NewLine + "using PropertyChanged;"
+                + "{2}",
                 inHeader ? Environment.NewLine : "",
                 includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
                 inHeader ? "" : Environment.NewLine)

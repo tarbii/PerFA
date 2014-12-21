@@ -13,10 +13,10 @@ namespace PerFA.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PerFAEntities1 : DbContext
+    public partial class DatabaseContext : DbContext
     {
-        public PerFAEntities1()
-            : base("name=PerFAEntities1")
+        public DatabaseContext()
+            : base("name=DatabaseContext")
         {
         }
     

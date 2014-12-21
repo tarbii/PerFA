@@ -11,7 +11,9 @@ namespace PerFA.Model
 {
     using System;
     using System.Collections.Generic;
+    using PropertyChanged;
     
+    [ImplementPropertyChanged]
     public partial class Rent
     {
         public int ID { get; set; }

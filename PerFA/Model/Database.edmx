@@ -611,7 +611,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PerFAEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DatabaseContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Credits" EntityType="Self.Credit" />
           <EntitySet Name="Deposits" EntityType="Self.Deposit" />
           <EntitySet Name="Grants" EntityType="Self.Grant" />
@@ -679,7 +679,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PerFAModelStoreContainer" CdmEntityContainer="PerFAEntities1">
+        <EntityContainerMapping StorageEntityContainer="PerFAModelStoreContainer" CdmEntityContainer="DatabaseContext">
           <EntitySetMapping Name="Credits">
             <EntityTypeMapping TypeName="PerFAModel.Credit">
               <MappingFragment StoreEntitySet="Credit">
