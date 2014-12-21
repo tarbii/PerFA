@@ -32,30 +32,140 @@
                 <TextBox TextWrapping="Wrap" Text="{Binding Transaction.User.Name, Mode=OneTime}" IsReadOnly="True"/>
             </DockPanel>
             <StackPanel>
-                <StackPanel x:Name="StackPanelHE" 
+
+                <StackPanel x:Name="HouseholdStackPanel" 
                             DataContext="{Binding Transaction.HouseholdExpence}"
                             Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
                     <DockPanel Margin="5">
-                        <Label Content="Категорія" DockPanel.Dock="Top"/>
+                        <Label Content="Type" DockPanel.Dock="Top"/>
                         <TextBox TextWrapping="Wrap" Text="{Binding HE_type}"/>
                     </DockPanel>
                     <DockPanel Margin="5">
-                        <Label Content="Коментар" DockPanel.Dock="Top"/>
+                        <Label Content="Comment" DockPanel.Dock="Top"/>
                         <TextBox TextWrapping="Wrap" Text="{Binding Comment}"/>
                     </DockPanel>
                 </StackPanel>
-                <StackPanel x:Name="StackPanelWages" 
+
+                <StackPanel x:Name="WageStackPanel" 
                             DataContext="{Binding Transaction.Wage}"
         		    Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
                     <DockPanel Margin="5">
-                        <Label Content="Місце роботи" DockPanel.Dock="Top"/>
+                        <Label Content="Workplace" DockPanel.Dock="Top"/>
                         <TextBox TextWrapping="Wrap" Text="{Binding Workplace}"/>
                     </DockPanel>
                     <DockPanel Margin="5">
-                        <Label Content="Ставка" DockPanel.Dock="Top"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding Wage_rate}"/>
+                        <Label Content="Rate" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Wage_rate, StringFormat=P2}"/>
                     </DockPanel>
                 </StackPanel>
+
+                <StackPanel x:Name="CreditStackPanel" 
+                	DataContext="{Binding Transaction.Credit}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Credit rate(%)" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Credit_rate___, StringFormat=P2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Credit body" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Credti_body, StringFormat=N2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Monthly payment" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Monthly_payment, StringFormat=N2}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="OtherExpenseStackPanel" 
+                            DataContext="{Binding Transaction.OtherExpence}"
+                            Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Type" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding OE_type}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Comment" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Comment}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="OtherIncomeStackPanel" 
+                	DataContext="{Binding Transaction.OtherIncome}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Type" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding OI_type}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Comment" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Comment}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="LongExpenseStackPanel" 
+                	DataContext="{Binding Transaction.LongTermExpence}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Type" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding LtE_type}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Comment" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Comment}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Term of usage" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Term_of_usage}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="GrantStackPanel" 
+                	DataContext="{Binding Transaction.Grant}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Type" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Grant_type}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Rate" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Grant_rate}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="DepositStackPanel" 
+                	DataContext="{Binding Transaction.Deposit}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Deposit rate(%)" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Deposit_rate___, StringFormat=P2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Money on deposit" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Money_on_deposit, StringFormat=N2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Expected income" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Expected_income, StringFormat=N2}"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="RentStackPanel" 
+                	DataContext="{Binding Transaction.Rent}"
+                	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
+                    <DockPanel Margin="5">
+                        <Label Content="Monthly payment" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Rate, StringFormat=N2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Meters" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Meters, StringFormat=N2}"/>
+                    </DockPanel>
+                    <DockPanel Margin="5">
+                        <Label Content="Public utilities" DockPanel.Dock="Top"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Public_utilities, StringFormat=N2}"/>
+                    </DockPanel>
+                </StackPanel>
+
             </StackPanel>
         </StackPanel>
         <DockPanel>

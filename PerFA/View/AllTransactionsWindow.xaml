@@ -35,13 +35,13 @@
                         <CheckBox Content="Check all / none" IsChecked="{Binding AllTransactionsClass.TypeFilter.AllChecked}"/>
                         <CheckBox Content="Wage" IsChecked="{Binding AllTransactionsClass.TypeFilter.WageChecked, Mode=TwoWay}"/>
                         <CheckBox Content="HouseholdExpenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.HouseholdExpensesChecked, Mode=TwoWay}"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
-                        <CheckBox Content="CheckBox" IsChecked="True"/>
+                        <CheckBox Content="Income on deposit" IsChecked="{Binding AllTransactionsClass.TypeFilter.IncomeOnDepositChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Scholarship" IsChecked="{Binding AllTransactionsClass.TypeFilter.ScholarshipChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Other income" IsChecked="{Binding AllTransactionsClass.TypeFilter.OtherIncomeChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Rent" IsChecked="{Binding AllTransactionsClass.TypeFilter.RentChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Credit expenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.CreditExpensesChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Long term expenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.LongTermldExpensesChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Other expenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.OtherdExpensesChecked, Mode=TwoWay}"/>
                     </StackPanel>
                 </Expander>
                 <Expander Header="Search" BorderBrush="#FFB8B8B8" Padding="5,6,5,5" Margin="5">
@@ -71,7 +71,7 @@
                 <DataGridTextColumn Header="Date" Binding="{Binding Transaction.Date}" ClipboardContentBinding="{x:Null}"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Transaction.Description}" ClipboardContentBinding="{x:Null}"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Transaction.User.Name}" ClipboardContentBinding="{x:Null}"/>
-                <DataGridTextColumn Header="Your sum" Binding="{Binding Sum}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Header="Your sum" Binding="{Binding Sum, StringFormat=N2}" ClipboardContentBinding="{x:Null}"/>
             </DataGrid.Columns>
             <DataGrid.InputBindings>
                 <MouseBinding

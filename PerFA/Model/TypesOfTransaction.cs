@@ -28,7 +28,7 @@ namespace PerFA.Model
            "Rent",
            "Credit expenses",
            "Long term expenses",
-           "Other expences"
+           "Other expenses"
         };
     }
 }

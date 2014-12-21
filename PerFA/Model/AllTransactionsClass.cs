@@ -100,9 +100,32 @@ namespace PerFA.Model
 
                         // filter by type
                         &&
-                        ((TypeFilter.WageChecked && x.Transaction.Wage != null)
-                        || (TypeFilter.HouseholdExpensesChecked && 
-                                x.Transaction.HouseholdExpence != null)))
+                        ((  TypeFilter.WageChecked && x.Transaction.Wage != null)
+                                
+                                || (TypeFilter.HouseholdExpensesChecked && 
+                                x.Transaction.HouseholdExpence != null)
+                                
+                                || (TypeFilter.IncomeOnDepositChecked &&
+                                x.Transaction.Deposit != null)
+                                
+                                || (TypeFilter.ScholarshipChecked &&
+                                x.Transaction.Grant != null)
+                                
+                                || (TypeFilter.OtherIncomeChecked &&
+                                x.Transaction.OtherIncome != null) 
+                                
+                                || (TypeFilter.RentChecked &&
+                                x.Transaction.Rent != null) 
+                                
+                                || (TypeFilter.CreditExpensesChecked &&
+                                x.Transaction.Credit != null) 
+                                
+                                || (TypeFilter.LongTermldExpensesChecked &&
+                                x.Transaction.LongTermExpence != null) 
+                                
+                                || (TypeFilter.OtherdExpensesChecked &&
+                                x.Transaction.OtherExpence != null)
+                         ))
                     .Select(x => x));
 
             Income = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s > 0).Sum();
