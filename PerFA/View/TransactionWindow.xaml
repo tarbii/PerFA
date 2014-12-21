@@ -51,10 +51,16 @@
                 </DockPanel>
             </StackPanel>
         </StackPanel>
-        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" ItemsSource="{Binding Transaction.Transaction.UsersSumsDictionary}"/>
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" AutoGenerateColumns="False" ItemsSource="{Binding Transaction.Transaction.MultiuserManager.TuCollection}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding User.Login}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Binding="{Binding User.Name}" ClipboardContentBinding="{x:Null}"/>
+                <DataGridTextColumn Binding="{Binding Sum}" ClipboardContentBinding="{x:Null}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <DockPanel LastChildFill="False" HorizontalAlignment="Center">
-            <Button Content="Cancel" HorizontalAlignment="Right" Margin="5" IsCancel="True"/>
             <Button Content="Save Changes" HorizontalAlignment="Right" Command="{Binding SaveChangesCommand}" Margin="5" IsDefault="True" Click="Button_Click"/>
+            <Button Content="Cancel" HorizontalAlignment="Right" Margin="5" IsCancel="True"/>
         </DockPanel>
     </StackPanel>
 </Window>

@@ -23,12 +23,16 @@ namespace PerFA.Model
         }
 
         //private Dictionary<string, decimal?> usersSumsDictionary;
-        
-        public readonly TransactionUser transactionUser;
 
-        public DetailedTransaction(TransactionUser transactionUser)
+        private DatabaseContext db;
+        private readonly TransactionUser transactionUser;
+
+        public DetailedTransaction(TransactionUser transactionUser, DatabaseContext db)
         {
             this.transactionUser = transactionUser;
+            this.db = db;
+            MultiuserManager = new MultiuserManager(
+                db, transactionUser.ID_user, transactionUser.ID_transaction);
             if (transactionUser.Transaction.HouseholdExpence != null)
             {
                 householdExpensesDetails = 
@@ -103,6 +107,20 @@ namespace PerFA.Model
         //        }
         //    }
         //}
+
+        private MultiuserManager multiuserManager;
+        public MultiuserManager MultiuserManager
+        {
+            get { return multiuserManager; }
+            set
+            {
+                if (multiuserManager != value)
+                {
+                    multiuserManager = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private readonly string type;
         public string Type

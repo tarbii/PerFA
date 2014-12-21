@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\DetailedTransaction.cs" />
+    <Compile Include="Model\MultiuserManager.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\TransactionClass.cs" />
     <Compile Include="Model\TransactionPresentation.cs" />
@@ -155,6 +156,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="PerFA.Model.Database.TransactionUser.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

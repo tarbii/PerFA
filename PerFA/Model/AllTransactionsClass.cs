@@ -135,7 +135,7 @@ namespace PerFA.Model
                             UserId = x.ID_user,
                             TransactionId = x.ID_transaction
                         })));
-                
+
                 Income = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s > 0).Sum();
                 Expences = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Where(s => s < 0).Sum();
                 Balance = Transactions.Select(t => t.Sum != null ? t.Sum.Value : 0).Sum();
@@ -213,14 +213,17 @@ namespace PerFA.Model
 
         public void DeleteTransaction()
         {
-            using (var db = new DatabaseContext())
+            if (SelectedTransaction != null)
             {
-                db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
-                    x.ID_transaction == SelectedTransaction.TransactionId &&
-                    x.ID_user == SelectedTransaction.UserId));
-                db.SaveChanges();
+                using (var db = new DatabaseContext())
+                {
+                    db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
+                        x.ID_transaction == SelectedTransaction.TransactionId &&
+                        x.ID_user == SelectedTransaction.UserId));
+                    db.SaveChanges();
+                }
+                LoadTransactions();
             }
-            LoadTransactions();
         }
 
 

@@ -69,7 +69,7 @@ namespace PerFA.Model
 
             var transactionUser = db.TransactionUsers
                 .First(x => x.ID_user == userId && x.ID_transaction == transactionId);
-            Transaction = new DetailedTransaction(transactionUser);
+            Transaction = new DetailedTransaction(transactionUser, db);
 
         }
 
@@ -100,7 +100,7 @@ namespace PerFA.Model
 
             }
 
-            Transaction = new DetailedTransaction(tu);
+            Transaction = new DetailedTransaction(tu, db);
         }
 
         public event Action ChangesSaved;
