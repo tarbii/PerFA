@@ -57,14 +57,23 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Bottom" AutoGenerateColumns="False" 
-                  ItemsSource="{Binding Transaction.Transaction.MultiuserManager.TuCollection}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Login" Binding="{Binding User.Login}" ClipboardContentBinding="{x:Null}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding User.Name}" ClipboardContentBinding="{x:Null}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding Sum, StringFormat=N2}" ClipboardContentBinding="{x:Null}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right">
+                <Button DockPanel.Dock="Top" Width="73" Margin="5" Command="{Binding DeleteTransactionUserCommand}">Delete</Button>
+                <Separator Margin="5"></Separator>
+                <ComboBox DockPanel.Dock="Top" Margin="5"></ComboBox>
+                <Button DockPanel.Dock="Top" Width="73" Margin="5">Add</Button>
+            </StackPanel>
+            <DataGrid VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False"
+        		ItemsSource="{Binding Transaction.Transaction.MultiuserManager.TransactionUsersCollection}"
+        		SelectedItem="{Binding Transaction.Transaction.MultiuserManager.SelectedTransactionUser}" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Login" Binding="{Binding User.Login}" ClipboardContentBinding="{x:Null}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding User.Name}" ClipboardContentBinding="{x:Null}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Sum, StringFormat=N2}" ClipboardContentBinding="{x:Null}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
         <DockPanel LastChildFill="False" HorizontalAlignment="Center">
             <Button Content="Save Changes" HorizontalAlignment="Right" Command="{Binding SaveChangesCommand}" Margin="5" IsDefault="True" Click="Button_Click"/>
             <Button Content="Cancel" HorizontalAlignment="Right" Margin="5" IsCancel="True"/>

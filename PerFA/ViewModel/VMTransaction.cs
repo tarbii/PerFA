@@ -12,6 +12,7 @@ namespace PerFA.ViewModel
     {
         public TransactionClass Transaction { get; set; }
         public SaveChangesCommand SaveChangesCommand { get; set; }
+        public RelayCommand DeleteTransactionUserCommand { get; private set; }
 
         public VMTransaction()
         {
@@ -25,6 +26,8 @@ namespace PerFA.ViewModel
         public void LoadTransaction(int userId, int? transactionId)
         {
             Transaction.LoadTransaction(userId, transactionId);
+            DeleteTransactionUserCommand = new RelayCommand(
+               Transaction.Transaction.MultiuserManager.DeleteTransactionUser);
         }
 
         public void CreateTransaction(int userId, string typeOfTransaction)

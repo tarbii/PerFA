@@ -8,51 +8,50 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Input;
 using PerFA.Annotations;
+using PerFA.ViewModel;
+using PropertyChanged;
 
 namespace PerFA.Model
 {
-    class MultiuserManager : INotifyPropertyChanged
+    [ImplementPropertyChanged]
+    class MultiuserManager
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private DatabaseContext db;
         private int userId;
-        private int transactionId;
+        private readonly int transactionId;
 
         public MultiuserManager(DatabaseContext db, int uId, int tId)
         {
             this.db = db;
             userId = uId;
             transactionId = tId;
-            var transactionUsers = db.TransactionUsers
-                .Where(x => x.ID_transaction == transactionId);
-            TuCollection = new ReadOnlyObservableCollection<TransactionUser>(
-                new ObservableCollection<TransactionUser>(transactionUsers));
-
+            LoadTransactionUsersCollection();
         }
 
+        public ObservableCollection<TransactionUser> TransactionUsersCollection 
+        { get; set; }
 
-        private ReadOnlyObservableCollection<TransactionUser> tuCollection;
-        public ReadOnlyObservableCollection<TransactionUser> TuCollection
+        public TransactionUser SelectedTransactionUser { get; set; }
+
+        public void DeleteTransactionUser(object parameter)
         {
-            get { return tuCollection; }
-            set
+            if (SelectedTransactionUser != null)
             {
-                if (tuCollection != value)
-                {
-                    tuCollection = value;
-                    OnPropertyChanged();
-                }
+                db.TransactionUsers.Remove(db.TransactionUsers.First(x =>
+                    x.ID_transaction == SelectedTransactionUser.ID_transaction
+                    && x.ID_user == SelectedTransactionUser.ID_user));
+                
+                LoadTransactionUsersCollection();
             }
-        }  
+        }
+
+        private void LoadTransactionUsersCollection()
+        {
+            var transactionUsers = db.TransactionUsers
+                .Where(x => x.ID_transaction == transactionId);
+            TransactionUsersCollection = new ObservableCollection<TransactionUser>(transactionUsers);
+        }
     }
 }

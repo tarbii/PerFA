@@ -136,6 +136,7 @@
     <Compile Include="ViewModel\CreateTransactionCommand.cs" />
     <Compile Include="ViewModel\DeleteTransactionCommand.cs" />
     <Compile Include="ViewModel\RegistrateCommand.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\VMRegistration.cs" />
     <Compile Include="ViewModel\VMAllTransactions.cs" />
     <Compile Include="ViewModel\ViewTransactionCommand.cs" />
