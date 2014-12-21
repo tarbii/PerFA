@@ -20,8 +20,15 @@ namespace PerFA.Model
         public AllTransactionsClass()
         {
             NamesOfTransaction = new NamesOfTransaction().NamesList;
+            SelectedNameOfTransaction = NamesOfTransaction.FirstOrDefault();
             TypeFilter.Changed += Update;
             DateFilter.PropertyChanged += DateFilter_PropertyChanged;
+            TextFilter.PropertyChanged += TextFilter_PropertyChanged;
+        }
+
+        void TextFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Update();
         }
 
         void DateFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -34,6 +41,9 @@ namespace PerFA.Model
         
         private readonly Filters.TypeFilter typeFilter = new Filters.TypeFilter(true);
         public Filters.TypeFilter TypeFilter { get { return typeFilter; } }
+
+        private readonly Filters.TextFilter textFilter = new Filters.TextFilter();
+        public Filters.TextFilter TextFilter { get { return textFilter; } }
 
         public TransactionUser SelectedTransaction { get; set; }
 
@@ -63,6 +73,7 @@ namespace PerFA.Model
             var db = new DatabaseContext();
 
             var df = DateFilter;
+            var tf = TextFilter;
             Transactions = new ObservableCollection<TransactionUser>(db.TransactionUsers
                     .Where(x => (x.ID_user == uId) 
                         
@@ -70,6 +81,24 @@ namespace PerFA.Model
                         && (df.From == null || x.Transaction.Date >= df.From)
                         && (df.To == null || x.Transaction.Date <= df.To)
                         
+                        // filtetr by text
+                        && (!tf.DescriptionChecked || tf.SearchTerm == null
+                        || x.Transaction.Description.Contains(tf.SearchTerm))
+                        && (!tf.EverywhereChecked || tf.SearchTerm == null
+                        || x.Transaction.Description.Contains(tf.SearchTerm)
+                        || x.Transaction.User.Name.Contains(tf.SearchTerm)
+                        || x.Transaction.Grant.Grant_type.Contains(tf.SearchTerm)
+                        || x.Transaction.HouseholdExpence.Comment.Contains(tf.SearchTerm)
+                        || x.Transaction.HouseholdExpence.HE_type.Contains(tf.SearchTerm)
+                        || x.Transaction.LongTermExpence.LtE_type.Contains(tf.SearchTerm)
+                        || x.Transaction.LongTermExpence.Comment.Contains(tf.SearchTerm)
+                        || x.Transaction.OtherExpence.Comment.Contains(tf.SearchTerm)
+                        || x.Transaction.OtherExpence.OE_type.Contains(tf.SearchTerm)
+                        || x.Transaction.OtherIncome.Comment.Contains(tf.SearchTerm)
+                        || x.Transaction.OtherIncome.OI_type.Contains(tf.SearchTerm)
+                        || x.Transaction.Wage.Workplace.Contains(tf.SearchTerm))
+
+                        // filter by type
                         &&
                         ((TypeFilter.WageChecked && x.Transaction.Wage != null)
                         || (TypeFilter.HouseholdExpensesChecked && 
