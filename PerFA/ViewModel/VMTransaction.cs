@@ -18,11 +18,11 @@ namespace PerFA.ViewModel
         public VMTransaction()
         {
             Transaction = new TransactionClass();
-            Transaction.ChangesSaved += Transaction_ChangesSaved;
+            //Transaction.ChangesSaved += Transaction_ChangesSaved;
             SaveChangesCommand = new SaveChangesCommand(Transaction);
         }
 
-        void Transaction_ChangesSaved() { }
+        //void Transaction_ChangesSaved() { }
 
         public void LoadTransaction(int userId, int? transactionId)
         {

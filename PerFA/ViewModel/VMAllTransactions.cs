@@ -13,6 +13,7 @@ namespace PerFA.ViewModel
         public Action<string> CreateNewTransactionWindowAction { get; set; }
         public Action<string> ShowMessageBoxAction { get; set; }
         public ViewTransactionCommand ViewTransactionCommand { get; set; }
+        public RelayCommand ResetDatePickersCommand { get; set; }
         public CreateTransactionCommand CreateTransactionCommand { get; set; }
         public DeleteTransactionCommand DeleteTransactionCommand { get; set; }
         public AllTransactionsClass AllTransactionsClass { get; set; }
@@ -28,6 +29,12 @@ namespace PerFA.ViewModel
             ViewTransactionCommand = new ViewTransactionCommand(AllTransactionsClass);
             CreateTransactionCommand = new CreateTransactionCommand(AllTransactionsClass);
             DeleteTransactionCommand = new DeleteTransactionCommand(AllTransactionsClass);
+            ResetDatePickersCommand = new RelayCommand(ExecuteResetDatePickersCommand);
+        }
+
+        private void ExecuteResetDatePickersCommand(object o)
+        {
+            AllTransactionsClass.DateFilter.Reset();
         }
 
         void AllTransactionsClass_TransactionCreationFailed(string message)

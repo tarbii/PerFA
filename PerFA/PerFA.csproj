@@ -94,6 +94,7 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DetailedTransaction.cs" />
+    <Compile Include="Model\Filters\DateFilter.cs" />
     <Compile Include="Model\Grant.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

@@ -52,7 +52,7 @@ namespace PerFA.Model.Filters
         public bool WageChecked
         {
             get { return wageChecked; }
-            private set
+            set
             {
                 if (wageChecked != value)
                 {
@@ -66,7 +66,7 @@ namespace PerFA.Model.Filters
         public bool HouseholdExpensesChecked
         {
             get { return householdExpensesChecked; }
-            private set
+            set
             {
                 if (householdExpensesChecked != value)
                 {

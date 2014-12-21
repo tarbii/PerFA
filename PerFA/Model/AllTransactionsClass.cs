@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,8 +21,17 @@ namespace PerFA.Model
         {
             NamesOfTransaction = new NamesOfTransaction().NamesList;
             TypeFilter.Changed += Update;
+            DateFilter.PropertyChanged += DateFilter_PropertyChanged;
         }
 
+        void DateFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private readonly Filters.DateFilter dateFilter = new Filters.DateFilter();
+        public Filters.DateFilter DateFilter { get { return dateFilter; } }
+        
         private readonly Filters.TypeFilter typeFilter = new Filters.TypeFilter(true);
         public Filters.TypeFilter TypeFilter { get { return typeFilter; } }
 
@@ -51,8 +61,16 @@ namespace PerFA.Model
 
             Debug.WriteLine("Loading transactions for {0}", uId);
             var db = new DatabaseContext();
+
+            var df = DateFilter;
             Transactions = new ObservableCollection<TransactionUser>(db.TransactionUsers
-                    .Where(x => (x.ID_user == uId) &&
+                    .Where(x => (x.ID_user == uId) 
+                        
+                        // filter by date
+                        && (df.From == null || x.Transaction.Date >= df.From)
+                        && (df.To == null || x.Transaction.Date <= df.To)
+                        
+                        &&
                         ((TypeFilter.WageChecked && x.Transaction.Wage != null)
                         || (TypeFilter.HouseholdExpensesChecked && 
                                 x.Transaction.HouseholdExpence != null)))
