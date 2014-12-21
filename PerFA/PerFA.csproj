@@ -122,8 +122,6 @@
     </Compile>
     <Compile Include="Model\TransactionClass.cs" />
     <Compile Include="Model\AllTransactionsClass.cs" />
-    <Compile Include="Model\TransactionTypes\DTHouseholdExpenses.cs" />
-    <Compile Include="Model\TransactionTypes\DTWage.cs" />
     <Compile Include="Model\Filters\TypeFilter.cs" />
     <Compile Include="Model\TransactionUser.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -142,6 +140,7 @@
     <Compile Include="ViewModel\VMAllTransactions.cs" />
     <Compile Include="ViewModel\ViewTransactionCommand.cs" />
     <Compile Include="ViewModel\VMTransaction.cs" />
+    <Compile Include="View\NullToVisibilityConverter.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
