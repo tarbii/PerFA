@@ -19,14 +19,16 @@ namespace PerFA.Model
     class MultiuserManager
     {
         private DatabaseContext db;
-        private int userId;
-        private readonly int transactionId;
+        private User user;
+        private readonly Transaction transaction;
+        private readonly List<User> allUsers; 
 
-        public MultiuserManager(DatabaseContext db, int uId, int tId)
+        public MultiuserManager(DatabaseContext db, User user, Transaction transaction)
         {
             this.db = db;
-            userId = uId;
-            transactionId = tId;
+            this.user = user;
+            this.transaction = transaction;
+            allUsers = db.Users.ToList();
             LoadTransactionUsersCollection();
         }
 
@@ -40,18 +42,15 @@ namespace PerFA.Model
 
         private void LoadTransactionUsersCollection()
         {
-            var transactionUsers = db.TransactionUsers
-                .Where(x => x.ID_transaction == transactionId);
+            var transactionUsers = transaction.TransactionUsers;
             TransactionUsersCollection = new ObservableCollection<TransactionUser>(transactionUsers);
 
-            var otherUsers = db.Users.Where(u => !db.TransactionUsers
-                .Where(x => x.ID_transaction == transactionId).Any(tu =>
-                u.ID == tu.User.ID));
+            var otherUsers = allUsers.Except(transactionUsers.Select(tu => tu.User));
             OtherUsers = new ObservableCollection<User>(otherUsers);
             SelectedUser = OtherUsers.FirstOrDefault();
         }
 
-        public void DeleteTransactionUser(object parameter)
+        public void DeleteTransactionUser()
         {
             if (SelectedTransactionUser != null)
             {

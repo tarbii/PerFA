@@ -22,7 +22,7 @@ namespace PerFA.Model
             this.transactionUser = transactionUser;
             this.db = db;
             multiuserManager = new MultiuserManager(
-                db, transactionUser.ID_user, transactionUser.ID_transaction);
+                db, transactionUser.User, transactionUser.Transaction);
             if (transactionUser.Transaction.HouseholdExpence != null)
             {
                 type = "Household expenses";

@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using PerFA.Model;
 using PerFA.View;
+using PropertyChanged;
 
 namespace PerFA.ViewModel
 {
+    [ImplementPropertyChanged]
     class VMTransaction
     {
         public TransactionClass Transaction { get; set; }
@@ -20,6 +22,10 @@ namespace PerFA.ViewModel
             Transaction = new TransactionClass();
             //Transaction.ChangesSaved += Transaction_ChangesSaved;
             SaveChangesCommand = new SaveChangesCommand(Transaction);
+            DeleteTransactionUserCommand = new RelayCommand(o =>
+                Transaction.Transaction.MultiuserManager.DeleteTransactionUser());
+            AddTransactionUserCommand = new RelayCommand(o => 
+                Transaction.Transaction.MultiuserManager.AddTransactionUser());
         }
 
         //void Transaction_ChangesSaved() { }
@@ -27,10 +33,6 @@ namespace PerFA.ViewModel
         public void LoadTransaction(int userId, int? transactionId)
         {
             Transaction.LoadTransaction(userId, transactionId);
-            DeleteTransactionUserCommand = new RelayCommand(
-                Transaction.Transaction.MultiuserManager.DeleteTransactionUser);
-            AddTransactionUserCommand = new RelayCommand(o => 
-                Transaction.Transaction.MultiuserManager.AddTransactionUser());
         }
 
         public void CreateTransaction(int userId, string typeOfTransaction)
