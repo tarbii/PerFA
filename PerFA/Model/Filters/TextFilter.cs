@@ -20,6 +20,11 @@ namespace PerFA.Model.Filters
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public TextFilter()
+        {
+            DescriptionChecked = true;
+        }
+
         private string searchTerm;
         public string SearchTerm
         {

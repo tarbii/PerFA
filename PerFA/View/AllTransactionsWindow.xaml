@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel"
         x:Class="PerFA.View.AllTransactionsWindow"
-        Title="Transactions" Height="592" Width="731" DataContextChanged="Window_DataContextChanged" MaxHeight="702" WindowStartupLocation="CenterScreen" Icon="/PerFA;component/Abacus.ico">
+        Title="All transactions" Height="592" Width="731" DataContextChanged="Window_DataContextChanged" MaxHeight="702" WindowStartupLocation="CenterScreen" Icon="/PerFA;component/Abacus.ico">
     <Window.DataContext>
         <ViewModel:VMAllTransactions/>
     </Window.DataContext>
@@ -34,7 +34,7 @@
                     <StackPanel Margin="0">
                         <CheckBox Content="Check all / none" IsChecked="{Binding AllTransactionsClass.TypeFilter.AllChecked}"/>
                         <CheckBox Content="Wage" IsChecked="{Binding AllTransactionsClass.TypeFilter.WageChecked, Mode=TwoWay}"/>
-                        <CheckBox Content="HouseholdExpenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.HouseholdExpensesChecked, Mode=TwoWay}"/>
+                        <CheckBox Content="Household Expenses" IsChecked="{Binding AllTransactionsClass.TypeFilter.HouseholdExpensesChecked, Mode=TwoWay}"/>
                         <CheckBox Content="Income on deposit" IsChecked="{Binding AllTransactionsClass.TypeFilter.IncomeOnDepositChecked, Mode=TwoWay}"/>
                         <CheckBox Content="Scholarship" IsChecked="{Binding AllTransactionsClass.TypeFilter.ScholarshipChecked, Mode=TwoWay}"/>
                         <CheckBox Content="Other income" IsChecked="{Binding AllTransactionsClass.TypeFilter.OtherIncomeChecked, Mode=TwoWay}"/>

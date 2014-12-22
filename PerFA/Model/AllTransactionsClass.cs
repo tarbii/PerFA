@@ -74,29 +74,29 @@ namespace PerFA.Model
 
             var df = DateFilter;
             var tf = TextFilter;
-            Transactions = new ObservableCollection<TransactionUser>(db.TransactionUsers
-                    .Where(x => (x.ID_user == uId) 
+            Transactions = new ObservableCollection<TransactionUser>(db.Users.First(x => (x.ID == uId)).TransactionUsers
+                    .Where(x => 
                         
                         // filter by date
-                        && (df.From == null || x.Transaction.Date >= df.From)
+                        (df.From == null || x.Transaction.Date >= df.From)
                         && (df.To == null || x.Transaction.Date <= df.To)
                         
                         // filtetr by text
-                        && (!tf.DescriptionChecked || tf.SearchTerm == null
-                        || x.Transaction.Description.Contains(tf.SearchTerm))
-                        && (!tf.EverywhereChecked || tf.SearchTerm == null
-                        || x.Transaction.Description.Contains(tf.SearchTerm)
-                        || x.Transaction.User.Name.Contains(tf.SearchTerm)
-                        || x.Transaction.Grant.Grant_type.Contains(tf.SearchTerm)
-                        || x.Transaction.HouseholdExpence.Comment.Contains(tf.SearchTerm)
-                        || x.Transaction.HouseholdExpence.HE_type.Contains(tf.SearchTerm)
-                        || x.Transaction.LongTermExpence.LtE_type.Contains(tf.SearchTerm)
-                        || x.Transaction.LongTermExpence.Comment.Contains(tf.SearchTerm)
-                        || x.Transaction.OtherExpence.Comment.Contains(tf.SearchTerm)
-                        || x.Transaction.OtherExpence.OE_type.Contains(tf.SearchTerm)
-                        || x.Transaction.OtherIncome.Comment.Contains(tf.SearchTerm)
-                        || x.Transaction.OtherIncome.OI_type.Contains(tf.SearchTerm)
-                        || x.Transaction.Wage.Workplace.Contains(tf.SearchTerm))
+                        && (!tf.DescriptionChecked || string.IsNullOrEmpty(tf.SearchTerm)
+                        || (x.Transaction.Description != null && x.Transaction.Description.Contains(tf.SearchTerm)))
+                        && (!tf.EverywhereChecked || string.IsNullOrEmpty(tf.SearchTerm)
+                        || (x.Transaction.Description != null && x.Transaction.Description.Contains(tf.SearchTerm))
+                        || (x.Transaction.User.Name != null && x.Transaction.User.Name.Contains(tf.SearchTerm))
+                        || (x.Transaction.Grant != null && x.Transaction.Grant.Grant_type != null && x.Transaction.Grant.Grant_type.Contains(tf.SearchTerm))
+                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.Comment != null && x.Transaction.HouseholdExpence.Comment.Contains(tf.SearchTerm))
+                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.HE_type != null && x.Transaction.HouseholdExpence.HE_type.Contains(tf.SearchTerm))
+                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.LtE_type != null && x.Transaction.LongTermExpence.LtE_type.Contains(tf.SearchTerm))
+                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.Comment != null && x.Transaction.LongTermExpence.Comment.Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.Comment != null && x.Transaction.OtherExpence.Comment.Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.OE_type != null && x.Transaction.OtherExpence.OE_type.Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.Comment != null && x.Transaction.OtherIncome.Comment.Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.OI_type != null && x.Transaction.OtherIncome.OI_type.Contains(tf.SearchTerm))
+                        || (x.Transaction.Wage != null && x.Transaction.Wage.Workplace != null && x.Transaction.Wage.Workplace.Contains(tf.SearchTerm)))
 
                         // filter by type
                         &&
