@@ -57,7 +57,7 @@ namespace PerFA.Model
             }
             else if (transactionUser.Transaction.OtherExpence != null)
             {
-                type = "Other expences";
+                type = "Other expenses";
             }
         }
         

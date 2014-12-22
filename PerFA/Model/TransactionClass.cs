@@ -112,7 +112,7 @@ namespace PerFA.Model
                     db.LongTermExpences.Add(longTerm);
                     break;
 
-                case "Other expences":
+                case "Other expenses":
                     var otherExp = db.OtherExpences.Create();
                     otherExp.Transaction = t;
                     db.OtherExpences.Add(otherExp);
