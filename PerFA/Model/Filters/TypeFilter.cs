@@ -221,7 +221,7 @@ namespace PerFA.Model.Filters
                     = value.Value;
                 muted = false;
 
-                OnChanged();
+                OnChanged(null);
             }
         }
     }

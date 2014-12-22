@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:PerFA.ViewModel"
         x:Class="PerFA.View.AllTransactionsWindow"
-        Title="All transactions" Height="592" Width="731" DataContextChanged="Window_DataContextChanged" MaxHeight="702" WindowStartupLocation="CenterScreen" Icon="/PerFA;component/Abacus.ico">
+        Title="All transactions" Height="592" Width="746" MaxHeight="702" WindowStartupLocation="CenterScreen" Icon="/PerFA;component/Abacus.ico">
     <Window.DataContext>
         <ViewModel:VMAllTransactions/>
     </Window.DataContext>
@@ -57,11 +57,11 @@
         </ScrollViewer>
         <DockPanel DockPanel.Dock="Top">
             <Label Content="Income:" VerticalAlignment="Top"/>
-            <Label Content="{Binding AllTransactionsClass.Income}"/>
-            <Label Content="Expences:"/>
-            <Label Content="{Binding AllTransactionsClass.Expences}"/>
+            <Label ContentStringFormat="{}{0:N2}" Content="{Binding AllTransactionsClass.Income }"/>
+            <Label Content="Expenses:"/>
+            <Label ContentStringFormat="{}{0:N2}" Content="{Binding AllTransactionsClass.Expences }"/>
             <Label Content="Balance:"/>
-            <Label Content="{Binding AllTransactionsClass.Balance}"/>
+            <Label ContentStringFormat="{}{0:N2}" Content="{Binding AllTransactionsClass.Balance }"/>
         </DockPanel>
         <DataGrid x:Name="TransactionDataGrid" 
     		ItemsSource="{Binding AllTransactionsClass.Transactions}" 

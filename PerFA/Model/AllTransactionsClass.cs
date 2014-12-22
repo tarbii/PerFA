@@ -83,20 +83,20 @@ namespace PerFA.Model
                         
                         // filtetr by text
                         && (!tf.DescriptionChecked || string.IsNullOrEmpty(tf.SearchTerm)
-                        || (x.Transaction.Description != null && x.Transaction.Description.Contains(tf.SearchTerm)))
+                        || (x.Transaction.Description != null && x.Transaction.Description.ToLower().Contains(tf.SearchTerm)))
                         && (!tf.EverywhereChecked || string.IsNullOrEmpty(tf.SearchTerm)
-                        || (x.Transaction.Description != null && x.Transaction.Description.Contains(tf.SearchTerm))
-                        || (x.Transaction.User.Name != null && x.Transaction.User.Name.Contains(tf.SearchTerm))
-                        || (x.Transaction.Grant != null && x.Transaction.Grant.Grant_type != null && x.Transaction.Grant.Grant_type.Contains(tf.SearchTerm))
-                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.Comment != null && x.Transaction.HouseholdExpence.Comment.Contains(tf.SearchTerm))
-                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.HE_type != null && x.Transaction.HouseholdExpence.HE_type.Contains(tf.SearchTerm))
-                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.LtE_type != null && x.Transaction.LongTermExpence.LtE_type.Contains(tf.SearchTerm))
-                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.Comment != null && x.Transaction.LongTermExpence.Comment.Contains(tf.SearchTerm))
-                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.Comment != null && x.Transaction.OtherExpence.Comment.Contains(tf.SearchTerm))
-                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.OE_type != null && x.Transaction.OtherExpence.OE_type.Contains(tf.SearchTerm))
-                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.Comment != null && x.Transaction.OtherIncome.Comment.Contains(tf.SearchTerm))
-                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.OI_type != null && x.Transaction.OtherIncome.OI_type.Contains(tf.SearchTerm))
-                        || (x.Transaction.Wage != null && x.Transaction.Wage.Workplace != null && x.Transaction.Wage.Workplace.Contains(tf.SearchTerm)))
+                        || (x.Transaction.Description != null && x.Transaction.Description.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.User.Name != null && x.Transaction.User.Name.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.Grant != null && x.Transaction.Grant.Grant_type != null && x.Transaction.Grant.Grant_type.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.Comment != null && x.Transaction.HouseholdExpence.Comment.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.HouseholdExpence != null && x.Transaction.HouseholdExpence.HE_type != null && x.Transaction.HouseholdExpence.HE_type.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.LtE_type != null && x.Transaction.LongTermExpence.LtE_type.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.LongTermExpence != null && x.Transaction.LongTermExpence.Comment != null && x.Transaction.LongTermExpence.Comment.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.Comment != null && x.Transaction.OtherExpence.Comment.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherExpence != null && x.Transaction.OtherExpence.OE_type != null && x.Transaction.OtherExpence.OE_type.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.Comment != null && x.Transaction.OtherIncome.Comment.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.OtherIncome != null && x.Transaction.OtherIncome.OI_type != null && x.Transaction.OtherIncome.OI_type.ToLower().Contains(tf.SearchTerm))
+                        || (x.Transaction.Wage != null && x.Transaction.Wage.Workplace != null && x.Transaction.Wage.Workplace.ToLower().Contains(tf.SearchTerm)))
 
                         // filter by type
                         &&

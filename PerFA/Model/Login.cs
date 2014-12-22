@@ -16,9 +16,7 @@ namespace PerFA.Model
 
         public Login()
         {
-            LoginData = "alex";
-            Password = "alex";
-            LoginMessage = "Введіть логін та пароль для авторизації.";
+            LoginMessage = "Enter your login and password to sign in.";
         }
 
         public string LoginMessage { get; set; }
@@ -45,7 +43,7 @@ namespace PerFA.Model
                 }
                 else
                 {
-                    LoginMessage = "Невірний логін або пароль";
+                    LoginMessage = "Wrong login/password";
                 }
             }
         }

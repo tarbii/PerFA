@@ -17,7 +17,7 @@
         <StackPanel VerticalAlignment="Top" DataContext="{Binding Transaction.Transaction.TransactionUser}">
             <DockPanel Margin="5">
                 <Label Content="Date" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
-                <TextBox TextWrapping="Wrap" Text="{Binding Transaction.Date}"/>
+                <DatePicker SelectedDate="{Binding Transaction.Date}"/>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Description" HorizontalAlignment="Left" DockPanel.Dock="Top" Padding="5,1,0,0"/>
@@ -64,7 +64,7 @@
                 	Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}, Mode=OneTime}">
                     <DockPanel Margin="5">
                         <Label Content="Credit rate(%)" DockPanel.Dock="Top"/>
-                        <TextBox TextWrapping="Wrap" Text="{Binding Credit_rate___, StringFormat=P2}"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Credit_rate___, StringFormat=N1}"/>
                     </DockPanel>
                     <DockPanel Margin="5">
                         <Label Content="Credit body" DockPanel.Dock="Top"/>

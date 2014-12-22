@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +25,7 @@ namespace PerFA.Model
         private string name;
         private string login;
         private string password;
+        private string passwordCheck;
 
         public string Name
         {
@@ -64,14 +66,76 @@ namespace PerFA.Model
             }
         }
 
+        public string PasswordCheck
+        {
+            get { return passwordCheck; }
+            set
+            {
+                if (passwordCheck != value)
+                {
+                    passwordCheck = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event Action RegistrationSucced;
+        protected virtual void OnRegistrationSucced()
+        {
+            Action handler = RegistrationSucced;
+            if (handler != null) handler();
+        }
+
+        public event Action<string> RegistrationFailed;
+        protected virtual void OnRegistrationFailed(string obj)
+        {
+            Action<string> handler = RegistrationFailed;
+            if (handler != null) handler(obj);
+        }
+
         public void Registrate()
         {
+            if (string.IsNullOrEmpty(Name))
+            {
+                OnRegistrationFailed("Name is not set.");
+                Password = PasswordCheck = "";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Login))
+            {
+                OnRegistrationFailed("Login is not set.");
+                Password = PasswordCheck = "";
+                return;
+            }
+            
+            if (string.IsNullOrEmpty(Password))
+            {
+                OnRegistrationFailed("Password is not set.");
+                Password = PasswordCheck = "";
+                return;
+            }
+
+            if (Password != PasswordCheck)
+            {
+                OnRegistrationFailed("Passwords do not match.");
+                Password = PasswordCheck = "";
+                return;
+            }
+            
             using (var db = new DatabaseContext())
             {
-                var user = new User() {Name = Name, Login = Login, Password = Password};
-                db.Users.Add(user);
-                db.SaveChanges();
+                if (db.Users.FirstOrDefault(x => x.Login == Login) == null)
+                {
+                    var user = new User() { Name = Name, Login = Login, Password = Password };
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    OnRegistrationSucced();
+                    return;
+                }
             }
+            OnRegistrationFailed("This login is already exist. Choose another one.");
+            Password = PasswordCheck = "";
         }
     }
 }

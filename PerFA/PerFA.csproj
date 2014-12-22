@@ -144,6 +144,7 @@
     <Compile Include="ViewModel\ViewTransactionCommand.cs" />
     <Compile Include="ViewModel\VMTransaction.cs" />
     <Compile Include="View\NullToVisibilityConverter.cs" />
+    <Compile Include="View\PasswordBoxAssistant.cs" />
     <Compile Include="View\UserToStringConverter.cs" />
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>

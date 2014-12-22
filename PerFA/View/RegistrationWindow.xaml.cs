@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PerFA.ViewModel;
 
 namespace PerFA.View
 {
@@ -22,6 +23,31 @@ namespace PerFA.View
         public RegistrationWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var vm = e.NewValue as VMRegistration;
+
+            if (vm == null)
+            {
+                throw new Exception("Wrong DataContext");
+            }
+
+            if (vm.RegistrationSucced == null)
+            {
+                vm.RegistrationSucced = () =>
+                {
+                    MessageBox.Show("Registration was successful");
+                    Close();
+                };
+            }
+
+            if (vm.RegistrationFailed == null)
+            {
+                vm.RegistrationFailed = (s) => MessageBox.Show(s);
+            }
+            
         }
     }
 }

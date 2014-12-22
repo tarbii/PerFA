@@ -33,7 +33,7 @@ namespace PerFA.Model.Filters
             {
                 if (searchTerm != value)
                 {
-                    searchTerm = value;
+                    searchTerm = value.ToLower();
                     OnPropertyChanged();
                 }
             }

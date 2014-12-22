@@ -27,11 +27,8 @@ namespace PerFA.View
         {
             this.userId = userId;
             InitializeComponent();
-        }
-
-        private void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var vm = e.NewValue as VMAllTransactions;
+            
+            var vm = DataContext as VMAllTransactions;
 
             if (vm == null)
             {
