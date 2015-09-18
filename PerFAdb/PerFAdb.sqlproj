@@ -160,4 +160,7 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment2.sql" />
+  </ItemGroup>
 </Project>
