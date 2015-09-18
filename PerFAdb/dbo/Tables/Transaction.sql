@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[Transaction](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Date] [date] NULL,
+	[Description] [varchar](max) NULL,
+	[Author_ID] [int] NOT NULL,
+ CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD  CONSTRAINT [FK_Transaction_User] FOREIGN KEY([Author_ID])
+REFERENCES [dbo].[User] ([ID])
+GO
+
+ALTER TABLE [dbo].[Transaction] CHECK CONSTRAINT [FK_Transaction_User]
